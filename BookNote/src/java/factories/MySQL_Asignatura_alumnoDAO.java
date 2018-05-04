@@ -1,30 +1,72 @@
 package factories;
 
 import dao.Asignatura_alumnoDAO;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Asignatura_alumno;
 
 public class MySQL_Asignatura_alumnoDAO implements Asignatura_alumnoDAO {
 
+    private ResultSet rs;
+    private String sql;
+    private List<Asignatura_alumno> asignatura_alumno;
+
+    MySQL_ConexionDAO c;
+
+    public MySQL_Asignatura_alumnoDAO() throws ClassNotFoundException, SQLException {
+        c = new MySQL_ConexionDAO("localhost", "bd_book_note", "root", "");
+    }
+
     @Override
     public void create(Asignatura_alumno asa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sql = "insert into asignatura_alumno value(null," + asa.getId_asignatura() + "," + asa.getId_asignatura() + "," + asa.getId_asistencia() + ")";
+        c.ejecutar(sql);
     }
 
     @Override
     public List<Asignatura_alumno> read() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sql = "select * from asignatura_alumno";
+
+        asignatura_alumno = new ArrayList<>();
+
+        Asignatura_alumno asa;
+
+        rs = c.ejecutarSelec(sql);
+
+        try {
+            while (rs.next()) {
+                asa = new Asignatura_alumno();
+                
+                asa.setId(rs.getInt(1));
+                asa.setId_asignatura(rs.getInt(2));
+                asa.setId_alumno(rs.getInt(3));
+                asa.setId_asistencia(rs.getInt(4));
+                
+                asignatura_alumno.add(asa);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQL_Asignatura_alumnoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        c.close();
+
+        return asignatura_alumno;
     }
 
     @Override
     public void update(Asignatura_alumno asa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sql = "update asignatura_alumno set id_asignatura = '" + asa.getId_asignatura() + "', id_alumno = " + asa.getId_alumno() + ", id_asistencia = " + asa.getId_asistencia() + " where id = " + asa.getId() + "";
+        c.ejecutar(sql);
     }
 
     @Override
     public void delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sql = "delete from asignatura_alumno where id=" + id;
+        c.ejecutar(sql);
     }
 
-    
 }

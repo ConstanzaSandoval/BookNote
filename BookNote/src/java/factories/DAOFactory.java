@@ -11,6 +11,7 @@ import dao.MensajeDAO;
 import dao.PruebaDAO;
 import dao.UsuarioDAO;
 import exception.MotorNoSoportadoException;
+import java.sql.SQLException;
 
 public class DAOFactory {
 
@@ -31,7 +32,7 @@ public class DAOFactory {
         MY_SQL,
     }
 
-    public AlumnoDAO getAlumnoDAO(Motor motor) throws MotorNoSoportadoException {
+    public AlumnoDAO getAlumnoDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
         switch (motor) {
             case MY_SQL:
                 return new MySQL_AlumnoDAO();
@@ -40,7 +41,7 @@ public class DAOFactory {
         }
     }
 
-    public ApoderadoDAO getApoderadoDAO(Motor motor) throws MotorNoSoportadoException {
+    public ApoderadoDAO getApoderadoDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
         switch (motor) {
             case MY_SQL:
                 return new MySQL_ApoderadoDAO();
@@ -49,7 +50,7 @@ public class DAOFactory {
         }
     }
 
-    public AsignaturaDAO getAsignaturaDAO(Motor motor) throws MotorNoSoportadoException {
+    public AsignaturaDAO getAsignaturaDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
         switch (motor) {
             case MY_SQL:
                 return new MySQL_AsignaturaDAO();
@@ -58,7 +59,7 @@ public class DAOFactory {
         }
     }
 
-    public Asignatura_alumnoDAO getAsignatura_alumnoDAO(Motor motor) throws MotorNoSoportadoException {
+    public Asignatura_alumnoDAO getAsignatura_alumnoDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
         switch (motor) {
             case MY_SQL:
                 return new MySQL_Asignatura_alumnoDAO();
@@ -67,7 +68,7 @@ public class DAOFactory {
         }
     }
 
-    public AsistenciaDAO getAsistenciaDAO(Motor motor) throws MotorNoSoportadoException {
+    public AsistenciaDAO getAsistenciaDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
         switch (motor) {
             case MY_SQL:
                 return new MySQL_AsistenciaDAO();
@@ -85,7 +86,7 @@ public class DAOFactory {
 //        }
 //    }
 
-    public DocenteDAO getDocenteDAO(Motor motor) throws MotorNoSoportadoException {
+    public DocenteDAO getDocenteDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
         switch (motor) {
             case MY_SQL:
                 return new MySQL_DocenteDAO();
@@ -94,7 +95,7 @@ public class DAOFactory {
         }
     }
 
-    public MensajeDAO getMensajeDAO(Motor motor) throws MotorNoSoportadoException {
+    public MensajeDAO getMensajeDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
         switch (motor) {
             case MY_SQL:
                 return new MySQL_MensajeDAO();
@@ -103,7 +104,7 @@ public class DAOFactory {
         }
     }
 
-    public PruebaDAO getPruebaDAO(Motor motor) throws MotorNoSoportadoException {
+    public PruebaDAO getPruebaDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
         switch (motor) {
             case MY_SQL:
                 return new MySQL_PruebaDAO();
@@ -112,7 +113,7 @@ public class DAOFactory {
         }
     }
 
-    public UsuarioDAO getUsuarioDAO(Motor motor) throws MotorNoSoportadoException {
+    public UsuarioDAO getUsuarioDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
         switch (motor) {
             case MY_SQL:
                 return new MySQL_UsuarioDAO();
