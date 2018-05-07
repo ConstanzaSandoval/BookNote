@@ -115,6 +115,32 @@ create table mensaje (
 INSERT INTO mensaje VALUES (null,'me da un completo',NOW(),1);
 
 
+DELIMITER $$
+CREATE FUNCTION crear_usuario (nickn VARCHAR(50),passw VARCHAR(50)) RETURNS BOOLEAN -- DROP FUNCTION crear_usuario
+BEGIN
+	DECLARE llave VARCHAR(10);
+        DECLARE existe_usuario boolean;
+        SET llave = 'llave';
+        SET existe_usuario = (SELECT COUNT(*) FROM usuario where nickname = nickn);
+         IF existe_usuario THEN -- si el usuario existe
+            RETURN FALSE;
+        ELSE
+            insert into usuario value(null,nickn, AES_ENCRYPT (passw, llave));
+            RETURN TRUE;
+        END IF;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE obtener_usuario (nickn VARCHAR(50),passw VARCHAR(50))
+BEGIN
+        DECLARE llave VARCHAR(10);
+        SET llave = 'llave';
+	SELECT * FROM usuario where nickname = nickn AND password = AES_ENCRYPT(passw,llave);
+END $$
+DELIMITER ;
+
+
 /* Como hacer el procedimiento en MYSQL:
 DELIMITER $$
 CREATE PROCEDURE procedimiento (variable TIPO, variable2 TIPO)

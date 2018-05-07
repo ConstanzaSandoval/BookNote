@@ -23,8 +23,23 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
 
     @Override
     public void create(Usuario u) {
-        sql = "insert into usuario value(null,'" + u.getNickname() + "','" + u.getPass() + "')";
-        c.ejecutar(sql);
+        sql = "select crear_usuario(" + u.getNickname() + "," + u.getPass() + ")";//crear usuario es una funcion sql que hace el insert con la contraseña encriptada usando AES
+        rs = c.ejecutarSelec(sql);
+
+        try {
+            if(rs.next()) {// Ahora podemos comprobar si se creo el usuario o no ya que el la funcion del script retorna boolean
+               if(rs.getBoolean(1)){
+                   System.out.println("Usuario creado");
+               }else{
+                   System.out.println("el nickname ya existe");
+               }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQL_UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        c.close();
+        
     }
 
     @Override
@@ -66,6 +81,28 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
     public void delete(String id) {
         sql = "delete from usuario where id=" + id;
         c.ejecutar(sql);
+    }
+    
+    @Override
+    public Usuario logIn(String nick, String pass) { // Destinado a obtener usuario dados nickname y password comparando los password encriptados en AES
+        sql = "call obtener_usuario(" + nick + "','" + pass + ")";
+        rs = c.ejecutarSelec(sql);
+        
+        Usuario u= new Usuario();
+        
+        try {
+            while (rs.next()) {
+                u.setId(rs.getInt(1));
+                u.setNickname(rs.getString(2));
+                u.setPass(rs.getString(3));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQL_UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        c.close();
+
+        return u;
     }
 
 }

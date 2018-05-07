@@ -9,4 +9,5 @@ public interface UsuarioDAO {
     List<Usuario> read();        
     void update (Usuario u);
     void delete (String id);
+    Usuario logIn(String nick, String pass);
 }
