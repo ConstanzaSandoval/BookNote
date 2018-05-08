@@ -5,7 +5,7 @@ public class Usuario {
     private int id; 
     private String nickname;
     private String pass;
-    private String perfil;
+    private int perfil;
 
     
     public Usuario() {
@@ -41,11 +41,11 @@ public class Usuario {
         this.pass = pass;
     }
 
-    public String getPerfil() {
+    public int getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(String perfil) {
+    public void setPerfil(int perfil) {
         this.perfil = perfil;
     }
 

@@ -42,18 +42,18 @@ public class IniciarSesionServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String user = request.getParameter("txtUsuario");
             String pass = request.getParameter("txtContraeña");
-            String perfil = request.getParameter("selectperfil");
+            int perfil = Integer.parseInt(request.getParameter("selectperfil"));
             
             
-            Usuario u = DAOFactory.getInstance().getUsuarioDAO(DAOFactory.Motor.MY_SQL).logIn(user, pass);
+            Usuario u = DAOFactory.getInstance().getUsuarioDAO(DAOFactory.Motor.MY_SQL).logIn(user, pass, perfil);
             
            if (u != null) {
                 request.getSession().setAttribute("usuario", u);
                 request.getSession().removeAttribute("error");
-              
-                response.sendRedirect("inicio.jsp");
+                response.sendRedirect("sesionDocente.jsp");
+                
             }else{
-                request.getSession().setAttribute("error", new Error("Rut Incorrecto"));
+                request.getSession().setAttribute("error", new Error("Datos Incorrecto"));
                 response.sendRedirect("index.jsp");
             }
             

@@ -10,5 +10,5 @@ public interface UsuarioDAO {
     List<Usuario> read()throws SQLException;        
     void update (Usuario u)throws SQLException;
     void delete (String id)throws SQLException;
-    Usuario logIn(String nick, String pass)throws SQLException;
+    Usuario logIn(String nick, String pass, int perfil)throws SQLException;
 }
