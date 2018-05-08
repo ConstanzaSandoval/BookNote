@@ -29,6 +29,23 @@
         font-weight: bolder;
         
     }
+    
+    table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    
     </style>
     
     <body>
@@ -75,28 +92,27 @@
                     <div class="col-md-6 col-md-offset-3">
                         <form action="sesionDocente.jsp" method="post">
                             
-                            <div class="form-group">
-                                Fecha:
-                                <input name="fecha" type="datetime" class="form-control" maxlength="8"  id="fecha" placeholder="Fecha:" required="required">
-
-                            </div>
-                            <!-- Arreglar-->
-                            <div class="form-group">
-                                Llego atrasado? <br>
-                                Si <input name="atraso" type="checkbox"  maxlength="8"  id="atrasado"  required="required">
-                                <br>
-                                No <input name="atraso" type="checkbox"  maxlength="8"  id="atrasado"  required="required" checked="checked" >
-                            </div>
-
-                            <div class="form-group">
-                                Alumno
-                                <input name="alumno" type="text" class="form-control" maxlength="8"  id="txtalumno" placeholder="Alumno:" required="required">
-
-                            </div>
+                             <table>
+                                <tr>
+                                    <th>Alumno</th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    
+                                </tr>
+                        
+                            </table>
 
                             <center>
                                 <button  class="btn btn-primary navbar-custome" type="submit" value="Registrar Usuario" name="registrar">
-                                    Ingresar Asistencia
+                                    Guardar Cambios
                                 </button>
                                 <a href="sesionDocente.jsp" class="btn btn-primary navbar-custome" role="button" aria-pressed="false" >Volver</a>
 

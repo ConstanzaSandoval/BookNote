@@ -79,7 +79,7 @@
                             Mensaje:
                             <div class="form-group">
                                 
-                                <textarea class="form-control justify-content-xl-center" name="mensaje" rows="10" cols="30">
+                                <textarea class="form-control justify-content-xl-center" name="mensaje" rows="4" cols="30" placeholder="Escriba su mensaje aqui!" >
                                 Escriba su mensaje aqui!
                                 </textarea>
                             </div>

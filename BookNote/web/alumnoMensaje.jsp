@@ -62,11 +62,11 @@
             <ul class="nav navbar-nav navbar-center">
                 
                 <li>
-                    <a href="alumnoMensaje.jsp">Mensaje</a>
+                    <a href="alumnoNota.jsp">Ver Notas</a>
                 </li>
 
                 <li>
-                    <a href="alumnoNota.jsp">Notas</a>
+                    <a href="alumnoMensaje.jsp">Avisos del Profesor</a>
                 </li>
             </ul>
            

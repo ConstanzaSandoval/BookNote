@@ -31,7 +31,7 @@
     
     }
     
-     table {
+    table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -63,11 +63,12 @@
             <ul class="nav navbar-nav navbar-center">
                 
                 <li>
-                    <a href="AlumnoMensaje.jsp">Mensaje</a>
+                    <a href="alumnoNota.jsp">Ver Notas</a>
+                    
                 </li>
 
                 <li>
-                    <a href="alumnoNota.jsp">Notas</a>
+                    <a href="alumnoMensaje.jsp">Avisos del Profesor</a>
                 </li>
             </ul>
            

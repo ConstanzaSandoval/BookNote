@@ -54,15 +54,26 @@
                         <form action="sesionDocente.jsp" method="post">
 
                             <div class="form-group"> 
-                                Usuario
+                                Usuario:
                                 <input name="txtUsuario" type="text" class="form-control" maxlength="8"  id="txtUsuario" placeholder="Usuario:" required="required">
                                 
                             </div>  
 
                             <div class="form-group">
-                                Contrasena
+                                Contrasena:
                                 <input name="txtContraeña" type="password" class="form-control" id="inputNombre" placeholder="Contraseña: " required="required">
                             </div>
+                            
+                            <div class="form-group">
+                                Perfil: <br>
+                                <select class="form-control">
+                                    <option value="docente">Docente</option>
+                                    <option value="alumno">Alumno</option>
+                                    <option value="padre">Padre</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            
                             
                             <center>
                                 <button  class="btn btn-primary navbar-custome" type="submit" value="Registrar Usuario" name="registrar">
