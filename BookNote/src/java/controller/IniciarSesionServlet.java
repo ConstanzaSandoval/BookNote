@@ -5,19 +5,26 @@
  */
 package controller;
 
+import exception.MotorNoSoportadoException;
+import factories.DAOFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Usuario;
 
 /**
  *
  * @author pabli
  */
-@WebServlet(name = "IniciarSesionServlet", urlPatterns = {"/iniciarSesionServlet.do"})
+@WebServlet(name = "IniciarSesionServlet", urlPatterns = {"/iniciarSesion.do"})
 public class IniciarSesionServlet extends HttpServlet {
 
     /**
@@ -33,6 +40,10 @@ public class IniciarSesionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            String user = request.getParameter("txtUsuario");
+            String pass = request.getParameter("txtContraeña");
+            Usuario u = DAOFactory.getInstance().getUsuarioDAO(DAOFactory.Motor.MY_SQL).logIn(nick, pass);
+            
 //            Data d = new Data();
 //            
 //            String rut = request.getParameter("rut");
@@ -48,6 +59,12 @@ public class IniciarSesionServlet extends HttpServlet {
 //                response.sendRedirect("index.jsp");
 //            }
             
+        } catch (MotorNoSoportadoException ex) {
+            Logger.getLogger(IniciarSesionServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(IniciarSesionServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(IniciarSesionServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

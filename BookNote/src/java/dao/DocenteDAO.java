@@ -1,12 +1,13 @@
 package dao;
 
+import java.sql.SQLException;
 import java.util.List;
 import model.Docente;
 
 public interface DocenteDAO {
     
-    void create (Docente d);
-    List<Docente> read();        
-    void update (Docente d);
-    void delete (String id);
+    void create (Docente d)throws SQLException;
+    List<Docente> read()throws SQLException;        
+    void update (Docente d)throws SQLException;
+    void delete (String id)throws SQLException;
 }

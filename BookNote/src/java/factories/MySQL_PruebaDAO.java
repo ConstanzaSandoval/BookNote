@@ -22,13 +22,13 @@ public class MySQL_PruebaDAO implements PruebaDAO {
     }
 
     @Override
-    public void create(Prueba p) {
+    public void create(Prueba p) throws SQLException {
         sql = "insert into prueba value(null,'" + p.getNombre() + "'," + p.getNota() + "," + p.getPorcentaje() + "," + p.getId_asignatura() + "," + p.getId_alumno() + ")";
         c.ejecutar(sql);
     }
 
     @Override
-    public List<Prueba> read() {
+    public List<Prueba> read() throws SQLException {
         sql = "select * from prueba";
 
         prueba = new ArrayList<>();
@@ -37,7 +37,7 @@ public class MySQL_PruebaDAO implements PruebaDAO {
 
         rs = c.ejecutarSelec(sql);
 
-        try {
+     
             while (rs.next()) {
                 p = new Prueba();
                 
@@ -50,9 +50,7 @@ public class MySQL_PruebaDAO implements PruebaDAO {
                 
                 prueba.add(p);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_PruebaDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
 
         c.close();
 
@@ -60,13 +58,13 @@ public class MySQL_PruebaDAO implements PruebaDAO {
     }
 
     @Override
-    public void update(Prueba p) {
+    public void update(Prueba p) throws SQLException {
         sql = "update asignatura_alumno set nombre = '" + p.getNombre() + "', nota = " + p.getNota() + ", porcentaje = " + p.getPorcentaje() + ", id_asignatura = " + p.getId_asignatura() + ", id_alumno = " + p.getId_alumno() + " where id = " + p.getId() + "";
         c.ejecutar(sql);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id) throws SQLException {
         sql = "delete from prueba where id=" + id;
         c.ejecutar(sql);
     }

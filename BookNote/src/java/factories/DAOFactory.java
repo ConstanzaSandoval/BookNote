@@ -5,7 +5,6 @@ import dao.ApoderadoDAO;
 import dao.AsignaturaDAO;
 import dao.Asignatura_alumnoDAO;
 import dao.AsistenciaDAO;
-import dao.ConexionDAO;
 import dao.DocenteDAO;
 import dao.MensajeDAO;
 import dao.PruebaDAO;
@@ -20,7 +19,7 @@ public class DAOFactory {
     private DAOFactory() {
     }
 
-    private static DAOFactory getInstancia() {
+    public static DAOFactory getInstance() {
         if (daoFactory == null) {
             daoFactory = new DAOFactory();
         }

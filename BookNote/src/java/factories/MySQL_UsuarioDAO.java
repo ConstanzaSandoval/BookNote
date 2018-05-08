@@ -22,11 +22,11 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
     }
 
     @Override
-    public void create(Usuario u) {
+    public void create(Usuario u) throws SQLException {
         sql = "select crear_usuario(" + u.getNickname() + "," + u.getPass() + ")";//crear usuario es una funcion sql que hace el insert con la contraseña encriptada usando AES
         rs = c.ejecutarSelec(sql);
 
-        try {
+        
             if(rs.next()) {// Ahora podemos comprobar si se creo el usuario o no ya que el la funcion del script retorna boolean
                if(rs.getBoolean(1)){
                    System.out.println("Usuario creado");
@@ -34,16 +34,14 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
                    System.out.println("el nickname ya existe");
                }
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
         c.close();
         
     }
 
     @Override
-    public List<Usuario> read() {
+    public List<Usuario> read() throws SQLException {
         sql = "select * from usuario";
 
         usuario = new ArrayList<>();
@@ -52,7 +50,7 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
 
         rs = c.ejecutarSelec(sql);
 
-        try {
+       
             while (rs.next()) {
                 u = new Usuario();
                 
@@ -62,9 +60,7 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
                 
                 usuario.add(u);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
 
         c.close();
 
@@ -72,33 +68,31 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
     }
 
     @Override
-    public void update(Usuario u) {
+    public void update(Usuario u) throws SQLException {
         sql = "update usuario set nickname = '" + u.getNickname() + "', pass = '" + u.getPass() + "' where id = " + u.getId() + "";
         c.ejecutar(sql);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id) throws SQLException {
         sql = "delete from usuario where id=" + id;
         c.ejecutar(sql);
     }
     
     @Override
-    public Usuario logIn(String nick, String pass) { // Destinado a obtener usuario dados nickname y password comparando los password encriptados en AES
+    public Usuario logIn(String nick, String pass) throws SQLException { // Destinado a obtener usuario dados nickname y password comparando los password encriptados en AES
         sql = "call obtener_usuario(" + nick + "','" + pass + ")";
         rs = c.ejecutarSelec(sql);
         
         Usuario u= new Usuario();
         
-        try {
-            while (rs.next()) {
+       
+            if (rs.next()) {
                 u.setId(rs.getInt(1));
                 u.setNickname(rs.getString(2));
                 u.setPass(rs.getString(3));
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
         c.close();
 

@@ -22,13 +22,13 @@ public class MySQL_AsistenciaDAO implements AsistenciaDAO {
     }
 
     @Override
-    public void create(Asistencia asi) {
+    public void create(Asistencia asi) throws SQLException {
         sql = "insert into asistencia value(null,'" + asi.getFecha() + "','" + asi.isAsistio() + "')";
         c.ejecutar(sql);
     }
 
     @Override
-    public List<Asistencia> read() {
+    public List<Asistencia> read()throws SQLException {
         sql = "select * from asistencia";
 
         asistencia = new ArrayList<>();
@@ -37,7 +37,7 @@ public class MySQL_AsistenciaDAO implements AsistenciaDAO {
 
         rs = c.ejecutarSelec(sql);
 
-        try {
+       
             while (rs.next()) {
                 asi = new Asistencia();
                 
@@ -47,9 +47,7 @@ public class MySQL_AsistenciaDAO implements AsistenciaDAO {
                 
                 asistencia.add(asi);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_AsistenciaDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
         c.close();
 
@@ -57,13 +55,13 @@ public class MySQL_AsistenciaDAO implements AsistenciaDAO {
     }
 
     @Override
-    public void update(Asistencia asi) {
+    public void update(Asistencia asi) throws SQLException {
         sql = "update asistencia set fecha = '" + asi.getFecha() + "', asistio = " + asi.isAsistio() + " where id = " + asi.getId() + "";
         c.ejecutar(sql);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id) throws SQLException {
         sql = "delete from asistencia where id=" + id;
         c.ejecutar(sql);
     }

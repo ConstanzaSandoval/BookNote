@@ -51,7 +51,7 @@
                 <center><h1>Iniciar Sesion</h1></center>
                 <div class="row justify-content-xl-center">
                     <div class="col-md-6 col-md-offset-3">
-                        <form action="sesionDocente.jsp" method="post">
+                        <form action="iniciarSesion.do" method="post">
 
                             <div class="form-group"> 
                                 Usuario:
@@ -66,17 +66,17 @@
                             
                             <div class="form-group">
                                 Perfil: <br>
-                                <select class="form-control">
+                                <select class="form-control" name ="selectperfil">
                                     <option value="docente">Docente</option>
                                     <option value="alumno">Alumno</option>
-                                    <option value="padre">Padre</option>
-                                    <option value="admin">Admin</option>
+                                    <option value="apoderado">Apoderado</option>
+                                    <option value="admin">Administrador</option>
                                 </select>
                             </div>
                             
                             
                             <center>
-                                <button  class="btn btn-primary navbar-custome" type="submit" value="Registrar Usuario" name="registrar">
+                                <button  class="btn btn-primary navbar-custome" type="submit" value="Iniciar Sesion" name="iniciarsesion">
                                     Iniciar Sesion
                                 </button>
                             </center>

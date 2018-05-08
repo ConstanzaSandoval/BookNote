@@ -22,13 +22,13 @@ public class MySQL_DocenteDAO implements DocenteDAO {
     }
 
     @Override
-    public void create(Docente d) {
+    public void create(Docente d) throws SQLException {
         sql = "insert into docente value(null,'" + d.getNombre() + "','" + d.getApelido() + "'," + d.getId_usuario() + ")";
         c.ejecutar(sql);
     }
 
     @Override
-    public List<Docente> read() {
+    public List<Docente> read() throws SQLException {
         sql = "select * from docente";
 
         docente = new ArrayList<>();
@@ -37,7 +37,7 @@ public class MySQL_DocenteDAO implements DocenteDAO {
 
         rs = c.ejecutarSelec(sql);
 
-        try {
+       
             while (rs.next()) {
                 d = new Docente();
                 
@@ -48,9 +48,7 @@ public class MySQL_DocenteDAO implements DocenteDAO {
                 
                 docente.add(d);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_DocenteDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
         c.close();
 
@@ -58,13 +56,13 @@ public class MySQL_DocenteDAO implements DocenteDAO {
     }
 
     @Override
-    public void update(Docente d) {
+    public void update(Docente d) throws SQLException {
         sql = "update docente set nombre = '" + d.getNombre() + "', apellido = '" + d.getApelido() + "', id_usuario = " + d.getId_usuario() + " where id = " + d.getId() + "";
         c.ejecutar(sql);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id) throws SQLException {
         sql = "delete from docente where id=" + id;
         c.ejecutar(sql);
     }

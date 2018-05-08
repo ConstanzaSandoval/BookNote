@@ -7,15 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MySQL_ConexionDAO implements ConexionDAO {
 private Connection con; 
     private Statement sen;  
     private ResultSet rs;   
 
-    public MySQL_ConexionDAO(String server, String bd, String user, String pass) {
-        try {
+    public MySQL_ConexionDAO(String server, String bd, String user, String pass) throws ClassNotFoundException, SQLException {
+       
             String protocolo = "jdbc:mysql://";
             String lineaUser = "user=" + user;
             String lineaPass = "password=" + pass;
@@ -30,53 +29,43 @@ private Connection con;
 
             Class.forName("com.mysql.jdbc.Driver"); 
             con = DriverManager.getConnection(url);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(MySQL_ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
     }
 
     @Override
-    public void close() {
-        try {
+    public void close() throws SQLException {
+       
             sen.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     @Override
-    public void ejecutar(String query) {
-        try {
+    public void ejecutar(String query) throws SQLException {
+       
             sen = con.createStatement();
             sen.executeUpdate(query);
             close();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
     }
 
     @Override
-    public void conectar() {
-        try {
+    public void conectar() throws SQLException {
+        
             sen = con.createStatement();
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     @Override
-    public ResultSet ejecutarSelec(String select) {
-        try {
+    public ResultSet ejecutarSelec(String select) throws SQLException {
+        
             System.out.println(select);
             sen = con.createStatement();
             rs = sen.executeQuery(select);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_ConexionDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         return rs;
 
     }

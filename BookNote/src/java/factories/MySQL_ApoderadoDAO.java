@@ -22,13 +22,13 @@ public class MySQL_ApoderadoDAO implements ApoderadoDAO {
     }
 
     @Override
-    public void create(Apoderado ap) {
+    public void create(Apoderado ap) throws SQLException {
         sql = "insert into apoderado value(null,'" + ap.getNombre() + "','" + ap.getApellido() + "'," + ap.getId_usuario() + ")";
         c.ejecutar(sql);
     }
 
     @Override
-    public List<Apoderado> read() {
+    public List<Apoderado> read() throws SQLException{
         sql = "select * from apoderado";
 
         apoderado = new ArrayList<>();
@@ -37,7 +37,7 @@ public class MySQL_ApoderadoDAO implements ApoderadoDAO {
 
         rs = c.ejecutarSelec(sql);
 
-        try {
+       
             while (rs.next()) {
                 ap = new Apoderado();
                 
@@ -48,9 +48,7 @@ public class MySQL_ApoderadoDAO implements ApoderadoDAO {
                 
                 apoderado.add(ap);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_ApoderadoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
 
         c.close();
 
@@ -58,13 +56,13 @@ public class MySQL_ApoderadoDAO implements ApoderadoDAO {
     }
 
     @Override
-    public void update(Apoderado ap) {
+    public void update(Apoderado ap) throws SQLException {
         sql = "update apoderado set nombre = '" + ap.getNombre() + "', apellido = '" + ap.getApellido() + "', id_usuario = " + ap.getId_usuario() + " where id = " + ap.getId() + "";
         c.ejecutar(sql);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id) throws SQLException {
         sql = "delete from apoderado where id=" + id;
         c.ejecutar(sql);
     }

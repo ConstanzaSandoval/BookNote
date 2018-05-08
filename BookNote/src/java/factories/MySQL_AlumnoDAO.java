@@ -22,13 +22,13 @@ public class MySQL_AlumnoDAO implements AlumnoDAO {
     }
 
     @Override
-    public void create(Alumno a) {
+    public void create(Alumno a) throws SQLException {
         sql = "insert into alumno value(null,'" + a.getNombre() + "','" + a.getApellido() + "'," + a.getId_apoderado() + "," + a.getId_usuario() + ")";
         c.ejecutar(sql);
     }
 
     @Override
-    public List<Alumno> read() {
+    public List<Alumno> read() throws SQLException{
         sql = "select * from alumno";
         
         alumno = new ArrayList<>();
@@ -37,7 +37,7 @@ public class MySQL_AlumnoDAO implements AlumnoDAO {
         
         rs = c.ejecutarSelec(sql);
         
-        try {
+        
             while (rs.next()) {
                 a = new Alumno();
                 
@@ -49,22 +49,20 @@ public class MySQL_AlumnoDAO implements AlumnoDAO {
                 
                 alumno.add(a);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_AlumnoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         c.close();
         
         return alumno;
     }
 
     @Override
-    public void update(Alumno a) {
+    public void update(Alumno a) throws SQLException {
         sql = "update alumno set nombre = '" + a.getNombre() + "', apellido = '" + a.getApellido() + "', id_apoderado = " + a.getId_apoderado() + ", id_usuario = " + a.getId_usuario() + " where id = " + a.getId() + "";
         c.ejecutar(sql);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id) throws SQLException {
         sql = "delete from alumno where id=" + id;
         c.ejecutar(sql);
     }

@@ -22,13 +22,13 @@ public class MySQL_AsignaturaDAO implements AsignaturaDAO {
     }
 
     @Override
-    public void create(Asignatura as) {
+    public void create(Asignatura as) throws SQLException {
         sql = "insert into asignatura value(null,'" + as.getNombre() + "'," + as.getId_docente() + "," + as.getAsistencia() + ")";
         c.ejecutar(sql);
     }
 
     @Override
-    public List<Asignatura> read() {
+    public List<Asignatura> read()throws SQLException {
         sql = "select * from asignatura";
 
         asignatura = new ArrayList<>();
@@ -37,7 +37,7 @@ public class MySQL_AsignaturaDAO implements AsignaturaDAO {
 
         rs = c.ejecutarSelec(sql);
 
-        try {
+       
             while (rs.next()) {
                 as = new Asignatura();
                 
@@ -48,9 +48,7 @@ public class MySQL_AsignaturaDAO implements AsignaturaDAO {
                 
                 asignatura.add(as);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_AsignaturaDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
         c.close();
 
@@ -58,13 +56,13 @@ public class MySQL_AsignaturaDAO implements AsignaturaDAO {
     }
 
     @Override
-    public void update(Asignatura as) {
+    public void update(Asignatura as) throws SQLException {
         sql = "update asignatura set nombre = '" + as.getNombre() + "', id_docente = " + as.getId_docente() + ", asistencia = " + as.getAsistencia() + " where id = " + as.getId() + "";
         c.ejecutar(sql);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id) throws SQLException {
         sql = "delete from asignatura where id=" + id;
         c.ejecutar(sql);
     }

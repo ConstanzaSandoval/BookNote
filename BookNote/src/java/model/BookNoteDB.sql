@@ -2,21 +2,34 @@ create database bd_book_note;
 use bd_book_note;
 -- drop database bd_book_note;
 
+create table perfil(
+    id int auto_increment,
+    perfil varchar(50),
+    primary key(id)
+);
+
+insert into perfil values(null,"administrador");
+insert into perfil values(null,"docente");
+insert into perfil values(null,"alumno");
+insert into perfil values(null,"apoderado");
 
 create table usuario(
     id int auto_increment,
     nickname varchar(50),
     pass varchar(50),
-    primary key(id)
+    perfil int,
+    primary key(id),
+    foreign key(perfil) references perfil(id)
 ); -- select * from usuario;
 
-insert into usuario value(null,"admin", AES_ENCRYPT ("admin", "llave"));
-insert into usuario value(null,"jperez", AES_ENCRYPT ("12perez", "llave"));
-insert into usuario value(null,"cherna", AES_ENCRYPT ("12cherna", "llave"));
+
+insert into usuario value(null,"admin", AES_ENCRYPT ("admin", "llave"), 1);
+insert into usuario value(null,"jperez", AES_ENCRYPT ("pperezp", "llave"), 2);
+insert into usuario value(null,"cherna", AES_ENCRYPT ("12cherna", "llave"),3);
 insert into usuario value(null,"fbarrera", AES_ENCRYPT ("12fbarrera", "llave"));
+select * from usuario
 
-
-create table apoderado (
+create table persona (
     id int auto_increment,
     nombre varchar (50),
     apellido varchar (50),
@@ -26,17 +39,6 @@ create table apoderado (
 ); -- select * from apoderado;
 
 insert into apoderado value(null,"Juan","Perez",2);
-
-create table docente (
-    id int auto_increment,
-    nombre varchar (50),
-    apellido varchar (50),
-    id_usuario INT,
-    primary key (id),
-    foreign key(id_usuario) references usuario(id)  
-); -- select * from docente;
-
-INSERT INTO docente VALUES (null,"Carlos","Hernandez",3);
 
 create table asistencia (
     id int auto_increment,

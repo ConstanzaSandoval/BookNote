@@ -22,13 +22,13 @@ public class MySQL_MensajeDAO implements MensajeDAO {
     }
 
     @Override
-    public void create(Mensaje m) {
+    public void create(Mensaje m) throws SQLException {
         sql = "insert into mensaje value(null,'" + m.getTexto() + "','" + m.getFecha() + "'," + m.getId_asignatura() + ")";
         c.ejecutar(sql);
     }
 
     @Override
-    public List<Mensaje> read() {
+    public List<Mensaje> read() throws SQLException {
         sql = "select * from mensaje";
 
         mensaje = new ArrayList<>();
@@ -37,7 +37,7 @@ public class MySQL_MensajeDAO implements MensajeDAO {
 
         rs = c.ejecutarSelec(sql);
 
-        try {
+        
             while (rs.next()) {
                 m = new Mensaje();
                 
@@ -48,9 +48,7 @@ public class MySQL_MensajeDAO implements MensajeDAO {
                 
                 mensaje.add(m);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MySQL_MensajeDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
         c.close();
 
@@ -58,13 +56,13 @@ public class MySQL_MensajeDAO implements MensajeDAO {
     }
 
     @Override
-    public void update(Mensaje m) {
+    public void update(Mensaje m) throws SQLException {
         sql = "update mensaje set texto = '" + m.getTexto() + "', fecha = " + m.getFecha() + ", id_asignatura = " + m.getId_asignatura() + " where id = " + m.getId() + "";
         c.ejecutar(sql);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id) throws SQLException {
         sql = "delete from mensaje where id=" + id;
         c.ejecutar(sql);
     }
