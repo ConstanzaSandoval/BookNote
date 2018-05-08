@@ -1,16 +1,16 @@
 package model;
 
-public class Asignatura_alumno {
+public class AsignaturaAlumno {
     
     private int id;
     private int id_asignatura;
     private int id_alumno;
     private int id_asistencia;
 
-    public Asignatura_alumno() {
+    public AsignaturaAlumno() {
     }
 
-    public Asignatura_alumno(int id, int id_asignatura, int id_alumno, int id_asistencia) {
+    public AsignaturaAlumno(int id, int id_asignatura, int id_alumno, int id_asistencia) {
         this.id = id;
         this.id_asignatura = id_asignatura;
         this.id_alumno = id_alumno;

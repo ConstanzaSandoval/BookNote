@@ -1,16 +1,15 @@
 package factories;
 
-import dao.AlumnoDAO;
-import dao.ApoderadoDAO;
 import dao.AsignaturaDAO;
 import dao.Asignatura_alumnoDAO;
 import dao.AsistenciaDAO;
-import dao.DocenteDAO;
+
 import dao.MensajeDAO;
 import dao.PruebaDAO;
 import dao.UsuarioDAO;
 import exception.MotorNoSoportadoException;
 import java.sql.SQLException;
+import dao.PersonaDAO;
 
 public class DAOFactory {
 
@@ -31,23 +30,15 @@ public class DAOFactory {
         MY_SQL,
     }
 
-    public AlumnoDAO getAlumnoDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
+    public PersonaDAO getPersonaDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
         switch (motor) {
             case MY_SQL:
-                return new MySQL_AlumnoDAO();
+                return new MySQL_PersonaDAO();
             default:
                 throw new MotorNoSoportadoException(motor + " no soportado");
         }
     }
 
-    public ApoderadoDAO getApoderadoDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
-        switch (motor) {
-            case MY_SQL:
-                return new MySQL_ApoderadoDAO();
-            default:
-                throw new MotorNoSoportadoException(motor + " no soportado");
-        }
-    }
 
     public AsignaturaDAO getAsignaturaDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
         switch (motor) {
@@ -76,24 +67,7 @@ public class DAOFactory {
         }
     }
 
-//    public ConexionDAO getConexionDAO(Motor motor) throws MotorNoSoportadoException {
-//        switch (motor) {
-//            case MY_SQL:
-//                return new MySQL_ConexionDAO();
-//            default:
-//                throw new MotorNoSoportadoException(motor + " no soportado");
-//        }
-//    }
-
-    public DocenteDAO getDocenteDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
-        switch (motor) {
-            case MY_SQL:
-                return new MySQL_DocenteDAO();
-            default:
-                throw new MotorNoSoportadoException(motor + " no soportado");
-        }
-    }
-
+ 
     public MensajeDAO getMensajeDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
         switch (motor) {
             case MY_SQL:

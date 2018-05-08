@@ -24,9 +24,9 @@ create table usuario(
 
 
 insert into usuario value(null,"admin", AES_ENCRYPT ("admin", "llave"), 1);
-insert into usuario value(null,"jperez", AES_ENCRYPT ("pperezp", "llave"), 2);
-insert into usuario value(null,"cherna", AES_ENCRYPT ("12cherna", "llave"),3);
-insert into usuario value(null,"fbarrera", AES_ENCRYPT ("12fbarrera", "llave"));
+insert into usuario value(null,"jperez", AES_ENCRYPT ("jperez123", "llave"), 2);
+insert into usuario value(null,"chernandez", AES_ENCRYPT ("12cherna", "llave"), 3);
+insert into usuario value(null,"fbarrera", AES_ENCRYPT ("12fbarrera", "llave"), 4);
 select * from usuario
 
 create table persona (
@@ -36,9 +36,7 @@ create table persona (
     id_usuario INT,
     primary key (id),
     foreign key(id_usuario) references usuario(id)    
-); -- select * from apoderado;
-
-insert into apoderado value(null,"Juan","Perez",2);
+); -- select * from persona;
 
 create table asistencia (
     id int auto_increment,
@@ -50,19 +48,15 @@ create table asistencia (
 insert into asistencia value(null,now(),true);
 insert into asistencia value(null,now(),false);
 
-create table alumno (
+create table alumnoApoderado (
     id int auto_increment,
-    nombre varchar (50),
-    apellido varchar (50),
+    id_alumno int,
     id_apoderado int,
-    id_usuario INT,
     primary key (id),
-    foreign key(id_apoderado) references apoderado(id), 
-    foreign key(id_usuario) references usuario(id)  
-); -- select * from alumno;
+    foreign key(id_apoderado) references persona(id), 
+    foreign key(id_alumno) references persona(id)  
+);
 
-INSERT INTO alumno VALUES (null,'franco','Barrera',1,4);
--- INSERT INTO nota VALUES ();
 
 create table asignatura (
     id int auto_increment,
@@ -70,7 +64,7 @@ create table asignatura (
     id_docente INT,
     asistencia INT,
     primary key (id),
-    foreign key(id_docente) references docente(id)  
+    foreign key(id_docente) references persona(id)  
 ); -- select * from asignatura;
 
 insert into asignatura value(null,"calculo",1,90);
@@ -84,7 +78,7 @@ create table asignatura_alumno (
     primary key (id),
     foreign key(id_asignatura) references asignatura(id),
     foreign key(id_asistencia) references asistencia(id),
-    foreign key(id_alumno) references alumno(id)     
+    foreign key(id_alumno) references persona(id)     
 );
 
 INSERT INTO asignatura_alumno VALUES (null,1,1,1);
@@ -99,7 +93,7 @@ create table prueba(
     id_alumno int,
     primary key(id),
     foreign key(id_asignatura) references asignatura(id),
-    foreign key(id_alumno) references alumno(id)
+    foreign key(id_alumno) references persona(id)
 );
 
 insert into prueba value(null,"prueba 1",5.5,0.25,1,1);
@@ -117,7 +111,7 @@ create table mensaje (
 INSERT INTO mensaje VALUES (null,'me da un completo',NOW(),1);
 
 
-DELIMITER $$
+/*DELIMITER $$
 CREATE FUNCTION crear_usuario (nickn VARCHAR(50),passw VARCHAR(50)) RETURNS BOOLEAN -- DROP FUNCTION crear_usuario
 BEGIN
 	DECLARE llave VARCHAR(10);
@@ -143,7 +137,7 @@ END $$
 DELIMITER ;
 
 
-/* Como hacer el procedimiento en MYSQL:
+ Como hacer el procedimiento en MYSQL:
 DELIMITER $$
 CREATE PROCEDURE procedimiento (variable TIPO, variable2 TIPO)
 BEGIN

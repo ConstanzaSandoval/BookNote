@@ -5,7 +5,9 @@ public class Usuario {
     private int id; 
     private String nickname;
     private String pass;
+    private String perfil;
 
+    
     public Usuario() {
     }
 
@@ -37,6 +39,14 @@ public class Usuario {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
     }
 
     @Override

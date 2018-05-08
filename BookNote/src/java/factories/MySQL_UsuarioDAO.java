@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Usuario;
 
 public class MySQL_UsuarioDAO implements UsuarioDAO {
@@ -23,6 +21,7 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
 
     @Override
     public void create(Usuario u) throws SQLException {
+        //insert into usuario value(null,"admin", AES_ENCRYPT ("admin", "llave"));
         sql = "select crear_usuario(" + u.getNickname() + "," + u.getPass() + ")";//crear usuario es una funcion sql que hace el insert con la contraseña encriptada usando AES
         rs = c.ejecutarSelec(sql);
 

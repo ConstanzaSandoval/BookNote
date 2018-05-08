@@ -5,13 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Asignatura_alumno;
+import model.AsignaturaAlumno;
 
 public class MySQL_Asignatura_alumnoDAO implements Asignatura_alumnoDAO {
 
     private ResultSet rs;
     private String sql;
-    private List<Asignatura_alumno> asignatura_alumno;
+    private List<AsignaturaAlumno> asignatura_alumno;
 
     MySQL_ConexionDAO c;
 
@@ -20,24 +20,24 @@ public class MySQL_Asignatura_alumnoDAO implements Asignatura_alumnoDAO {
     }
 
     @Override
-    public void create(Asignatura_alumno asa) throws SQLException {
+    public void create(AsignaturaAlumno asa) throws SQLException {
         sql = "insert into asignatura_alumno value(null," + asa.getId_asignatura() + "," + asa.getId_asignatura() + "," + asa.getId_asistencia() + ")";
         c.ejecutar(sql);
     }
 
     @Override
-    public List<Asignatura_alumno> read() throws SQLException{
+    public List<AsignaturaAlumno> read() throws SQLException{
         sql = "select * from asignatura_alumno";
 
         asignatura_alumno = new ArrayList<>();
 
-        Asignatura_alumno asa;
+        AsignaturaAlumno asa;
 
         rs = c.ejecutarSelec(sql);
 
        
             while (rs.next()) {
-                asa = new Asignatura_alumno();
+                asa = new AsignaturaAlumno();
                 
                 asa.setId(rs.getInt(1));
                 asa.setId_asignatura(rs.getInt(2));
@@ -54,7 +54,7 @@ public class MySQL_Asignatura_alumnoDAO implements Asignatura_alumnoDAO {
     }
 
     @Override
-    public void update(Asignatura_alumno asa) throws SQLException {
+    public void update(AsignaturaAlumno asa) throws SQLException {
         sql = "update asignatura_alumno set id_asignatura = '" + asa.getId_asignatura() + "', id_alumno = " + asa.getId_alumno() + ", id_asistencia = " + asa.getId_asistencia() + " where id = " + asa.getId() + "";
         c.ejecutar(sql);
     }

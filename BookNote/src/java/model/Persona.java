@@ -1,20 +1,20 @@
 package model;
 
-public class Alumno {
+
+public class Persona {
+    
     private int id;
     private String nombre;
     private String apellido;
-    private int id_apoderado;
     private int id_usuario;
 
-    public Alumno() {
+    public Persona() {
     }
 
-    public Alumno(int id, String nombre, String apellido, int id_apoderado, int id_usuario) {
+    public Persona(int id, String nombre, String apellido, int id_usuario) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.id_apoderado = id_apoderado;
         this.id_usuario = id_usuario;
     }
 
@@ -42,14 +42,6 @@ public class Alumno {
         this.apellido = apellido;
     }
 
-    public int getId_apoderado() {
-        return id_apoderado;
-    }
-
-    public void setId_apoderado(int id_apoderado) {
-        this.id_apoderado = id_apoderado;
-    }
-
     public int getId_usuario() {
         return id_usuario;
     }
@@ -60,7 +52,9 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", id_apoderado=" + id_apoderado + ", id_usuario=" + id_usuario + '}';
+        return "Persona{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", id_usuario=" + id_usuario + '}';
     }
+
+    
     
 }

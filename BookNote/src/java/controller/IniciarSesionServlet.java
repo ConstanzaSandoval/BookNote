@@ -42,22 +42,20 @@ public class IniciarSesionServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String user = request.getParameter("txtUsuario");
             String pass = request.getParameter("txtContraeña");
-            Usuario u = DAOFactory.getInstance().getUsuarioDAO(DAOFactory.Motor.MY_SQL).logIn(nick, pass);
+            String perfil = request.getParameter("selectperfil");
             
-//            Data d = new Data();
-//            
-//            String rut = request.getParameter("rut");
-//            
-//            Usuario u = d.getUsuario(rut);
-//            
-//            if (u != null) {
-//                request.getSession().setAttribute("usuario", u);
-//                request.getSession().removeAttribute("error");
-//                response.sendRedirect("inicio.jsp");
-//            }else{
-//                request.getSession().setAttribute("error", new Error("Rut Incorrecto"));
-//                response.sendRedirect("index.jsp");
-//            }
+            
+            Usuario u = DAOFactory.getInstance().getUsuarioDAO(DAOFactory.Motor.MY_SQL).logIn(user, pass);
+            
+           if (u != null) {
+                request.getSession().setAttribute("usuario", u);
+                request.getSession().removeAttribute("error");
+              
+                response.sendRedirect("inicio.jsp");
+            }else{
+                request.getSession().setAttribute("error", new Error("Rut Incorrecto"));
+                response.sendRedirect("index.jsp");
+            }
             
         } catch (MotorNoSoportadoException ex) {
             Logger.getLogger(IniciarSesionServlet.class.getName()).log(Level.SEVERE, null, ex);
