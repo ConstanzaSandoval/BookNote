@@ -3,17 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alex971/Desktop/BookNote/BookNote/BookNote/src/java/factories/DAOFactory.java</file>
-            <file>file:/C:/Users/Alex971/Desktop/BookNote/BookNote/BookNote/src/java/model/Usuario.java</file>
-            <file>file:/C:/Users/Alex971/Desktop/BookNote/BookNote/BookNote/src/java/dao/UsuarioDAO.java</file>
-            <file>file:/C:/Users/Alex971/Desktop/BookNote/BookNote/BookNote/src/java/model/BookNoteDB.sql</file>
-            <file>file:/C:/Users/Alex971/Desktop/BookNote/BookNote/BookNote/web/sesionAlumno.jsp</file>
-            <file>file:/C:/Users/Alex971/Desktop/BookNote/BookNote/BookNote/src/java/factories/MySQL_UsuarioDAO.java</file>
-            <file>file:/C:/Users/Alex971/Desktop/BookNote/BookNote/BookNote/web/inicio.jsp</file>
-            <file>file:/C:/Users/Alex971/Desktop/BookNote/BookNote/BookNote/web/alumnoNota.jsp</file>
-            <file>file:/C:/Users/Alex971/Desktop/BookNote/BookNote/BookNote/web/docenteNota.jsp</file>
-            <file>file:/C:/Users/Alex971/Desktop/BookNote/BookNote/BookNote/web/docenteMensaje.jsp</file>
-            <file>file:/C:/Users/Alex971/Desktop/BookNote/BookNote/BookNote/web/alumnoMensaje.jsp</file>
+            <file>file:/C:/Users/pabli/Desktop/BookNote/BookNote/web/index.jsp</file>
+            <file>file:/C:/Users/pabli/Desktop/BookNote/BookNote/web/inicio.jsp</file>
+            <file>file:/C:/Users/pabli/Desktop/BookNote/BookNote/web/sesionDocente.jsp</file>
         </group>
     </open-files>
 </project-private>
