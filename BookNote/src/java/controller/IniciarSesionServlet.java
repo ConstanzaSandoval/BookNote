@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import exception.MotorNoSoportadoException;
@@ -10,7 +5,6 @@ import factories.DAOFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -53,15 +47,11 @@ public class IniciarSesionServlet extends HttpServlet {
                 response.sendRedirect("sesion.jsp");
                 
             }else{
-                request.getSession().setAttribute("error", new Error("Datos Incorrecto"));
-                response.sendRedirect("index.jsp");
+                request.getSession().setAttribute("error", new Error("Datos Incorrectos"));
+                response.sendRedirect("inicio.jsp");
             }
             
-        } catch (MotorNoSoportadoException ex) {
-            Logger.getLogger(IniciarSesionServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(IniciarSesionServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (MotorNoSoportadoException | ClassNotFoundException | SQLException ex) {
             Logger.getLogger(IniciarSesionServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

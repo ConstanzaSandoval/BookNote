@@ -21,33 +21,33 @@ public class MySQL_PersonaDAO implements PersonaDAO {
 
     @Override
     public void create(Persona a) throws SQLException {
-        sql = "insert into persona value(null,'" + a.getNombre() + "', '" + a.getApellido()+ "', " + a.getId_usuario() + ")";
+        sql = "insert into persona value(null,'" + a.getNombre() + "', '" + a.getApellido() + "', " + a.getId_usuario() + ")";
         c.ejecutar(sql);
     }
 
     @Override
-    public List<Persona> read() throws SQLException{
+    public List<Persona> read() throws SQLException {
         sql = "select * from persona";
-        
+
         personas = new ArrayList<>();
-        
+
         Persona p;
-        
+
         rs = c.ejecutarSelec(sql);
-                
-            while (rs.next()) {
-                p = new Persona();
-                
-                p.setId(rs.getInt(1));
-                p.setNombre(rs.getString(2));
-                p.setApellido(rs.getString(3));
-                p.setId_usuario(rs.getInt(4));
-                
-                personas.add(p);
-            }
-        
+
+        while (rs.next()) {
+            p = new Persona();
+
+            p.setId(rs.getInt(1));
+            p.setNombre(rs.getString(2));
+            p.setApellido(rs.getString(3));
+            p.setId_usuario(rs.getInt(4));
+
+            personas.add(p);
+        }
+
         c.close();
-        
+
         return personas;
     }
 
@@ -67,4 +67,28 @@ public class MySQL_PersonaDAO implements PersonaDAO {
         c.ejecutar(sql);
     }
 
+    //select * from persona where id_usuario = usuario.id 
+
+    @Override
+    public Persona searchNameByUser(int idUsuario) throws SQLException{
+        sql = "select * from persona where id_usuario = "+idUsuario;
+
+
+        Persona p = null;
+
+        rs = c.ejecutarSelec(sql);
+
+        if (rs.next()) {
+            p = new Persona();
+
+            p.setId(rs.getInt(1));
+            p.setNombre(rs.getString(2));
+            p.setApellido(rs.getString(3));
+            p.setId_usuario(rs.getInt(4));
+        }
+
+        c.close();
+
+        return p;
+    }
 }

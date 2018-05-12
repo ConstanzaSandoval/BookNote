@@ -9,4 +9,5 @@ public interface PersonaDAO {
     List<Persona> read()throws SQLException;        
     void update (Persona p)throws SQLException;
     void delete (String id)throws SQLException;
+    Persona searchNameByUser(int idUser)throws SQLException;    
 }

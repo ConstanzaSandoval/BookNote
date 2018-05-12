@@ -1,9 +1,12 @@
+<%@page import="model.Persona"%>
+<%@page import="factories.DAOFactory"%>
+<%@page import="model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">S
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -11,7 +14,14 @@
 
         <title>BookNote</title>
     </head>
+<%
+    Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 
+    if (u == null) {
+        request.getSession().setAttribute("error", new Error("Debe Ingresar sus Credenciales"));
+        request.getRequestDispatcher("inicio.jsp").forward(request, response);
+    }
+%>
     <style>
         .navbar-nav.navbar-center {
             position: absolute;
@@ -47,7 +57,7 @@
             <ul class="nav navbar-nav navbar-center">
                 <li>
                     <% 
-                     //  if (u.getPerfil() == 1) {
+                      if (u.getPerfil() == 1) {
                     %>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Notas<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -67,7 +77,7 @@
                     %> </li>  
                     
                     <% 
-                      // if (u.getPerfil() == 2) {
+                       if (u.getPerfil() == 2) {
                     %>
 
                     <li>
@@ -83,7 +93,7 @@
                     %>
                 
                      <% 
-                      // if (u.getPerfil() == 3) {
+                       if (u.getPerfil() == 3) {
                     %>
 
                     <li>
@@ -117,12 +127,12 @@
             <div class="jumbotron" style="border-radius: 10px 10px 10px 10px">
                 <center>
                     <div class="container">
-                        <%// if (u != null) {
+                        <%
+                            if (u != null) {
+                                Persona p = DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).searchNameByUser(u.getId());
                                 out.println("<br><br><br>");
-                            //    out.println("<h1 class='display-4' >" + u.getNombre() + "</h1>");
+                                out.println("<h1 class='display-4' >" + p.getNombre() +" "+ p.getApellido()+"</h1>");
                                 out.println("<br>");
-                               // Data d = new Data();
-                              //  out.println("<p class = 'lead'>" + d.getPerfil(u.getPerfil()) + "</p>");
                             }
                         %>
                     </div>

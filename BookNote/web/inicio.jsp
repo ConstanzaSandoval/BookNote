@@ -1,3 +1,4 @@
+<%@page import="model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,7 +9,14 @@
 
         <title>BookNote</title>
     </head>
+<%
+    Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 
+    if (u == null) {
+        request.getSession().setAttribute("error", new Error("Debe Ingresar sus Credenciales"));
+        request.getRequestDispatcher("inicio.jsp").forward(request, response);
+    }
+%>
     <style>
     .navbar-nav.navbar-center {
         position: absolute;
@@ -60,7 +68,7 @@
                             </div>  
 
                             <div class="form-group">
-                                Contrasena:
+                                Contraseña:
                                 <input name="txtContraeña" type="password" class="form-control" id="inputNombre" placeholder="Contraseña: " required="required">
                             </div>
                             
@@ -74,10 +82,9 @@
                                 </select>
                             </div>
                             
-                            
                             <center>
                                 <button  class="btn btn-primary navbar-custome" type="submit" value="Iniciar Sesion" name="iniciarsesion">
-                                    Iniciar Sesion
+                                    Iniciar Sesión
                                 </button>
                             </center>
 
@@ -85,6 +92,13 @@
                     </div>
                 </div>
             </div>
+            <%
+                Error e = (Error) request.getSession().getAttribute("error");
+                if (e != null) {
+                    out.println("<p class='alert alert-danger' role='alert'>" + e.getMessage() + "</p>");
+                    request.getSession().removeAttribute("error");
+                }
+            %>
         </div>
         
     </body>

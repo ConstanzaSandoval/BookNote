@@ -38,12 +38,17 @@ create table persona (
     foreign key(id_usuario) references usuario(id)    
 ); -- select * from persona;
 
+insert into persona values(null, "Juan", "Perez", 2);
+insert into persona values(null, "Carlos", "Hernandez", 3);
+insert into persona values(null, "Franco", "Barrera", 4);
+
 create table asistencia (
     id int auto_increment,
     fecha datetime,
     asistio boolean,
     primary key (id)
 );
+--select * from asistencia
 
 insert into asistencia value(null,now(),true);
 insert into asistencia value(null,now(),false);
@@ -56,7 +61,7 @@ create table alumnoApoderado (
     foreign key(id_apoderado) references persona(id), 
     foreign key(id_alumno) references persona(id)  
 );
-
+Insert into alumnoApoderado values(null, 4, 2);
 
 create table asignatura (
     id int auto_increment,
@@ -67,7 +72,7 @@ create table asignatura (
     foreign key(id_docente) references persona(id)  
 ); -- select * from asignatura;
 
-insert into asignatura value(null,"calculo",1,90);
+insert into asignatura values(null, "calculo", 2, 90);
 
 
 create table asignatura_alumno (
@@ -81,8 +86,7 @@ create table asignatura_alumno (
     foreign key(id_alumno) references persona(id)     
 );
 
-INSERT INTO asignatura_alumno VALUES (null,1,1,1);
-INSERT INTO asignatura_alumno VALUES (null,1,1,2);
+INSERT INTO asignatura_alumno VALUES (null,1,3,1);
 
 create table prueba(
     id int auto_increment,
