@@ -35,20 +35,23 @@ public class IniciarSesionServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String user = request.getParameter("txtUsuario");
-            String pass = request.getParameter("txtContraeña");
+            String pass = request.getParameter("txtContrasenia");
             int perfil = Integer.parseInt(request.getParameter("selectperfil"));
+            
             
             
             Usuario u = DAOFactory.getInstance().getUsuarioDAO(DAOFactory.Motor.MY_SQL).logIn(user, pass, perfil);
             
+            
+            
            if (u != null) {
                 request.getSession().setAttribute("usuario", u);
                 request.getSession().removeAttribute("error");
-                response.sendRedirect("sesion.jsp");
+                response.sendRedirect("../sesion.jsp");
                 
             }else{
                 request.getSession().setAttribute("error", new Error("Datos Incorrectos"));
-                response.sendRedirect("inicio.jsp");
+                response.sendRedirect("../inicio.jsp");
             }
             
         } catch (MotorNoSoportadoException | ClassNotFoundException | SQLException ex) {

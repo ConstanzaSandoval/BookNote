@@ -9,14 +9,14 @@
 
         <title>BookNote</title>
     </head>
-<%
-    Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+<!--<%
+   /* Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 
     if (u == null) {
         request.getSession().setAttribute("error", new Error("Debe Ingresar sus Credenciales"));
         request.getRequestDispatcher("inicio.jsp").forward(request, response);
-    }
-%>
+    }*/
+%>-->
     <style>
     .navbar-nav.navbar-center {
         position: absolute;
@@ -69,16 +69,16 @@
 
                             <div class="form-group">
                                 Contraseña:
-                                <input name="txtContraeña" type="password" class="form-control" id="inputNombre" placeholder="Contraseña: " required="required">
+                                <input name="txtContrasenia" type="password" class="form-control" id="txtContrasenia" placeholder="Contraseña: " required="required">
                             </div>
                             
                             <div class="form-group">
                                 Perfil: <br>
                                 <select class="form-control" name ="selectperfil">
+                                    <option value="admin">Administrador</option>
                                     <option value="docente">Docente</option>
                                     <option value="alumno">Alumno</option>
                                     <option value="apoderado">Apoderado</option>
-                                    <option value="admin">Administrador</option>
                                 </select>
                             </div>
                             

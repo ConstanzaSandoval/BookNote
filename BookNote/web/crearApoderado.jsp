@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -74,10 +74,7 @@
                     <%
                        }
                     %></li>
-                
-                
-                
-                
+            
                 <li>
                     <% 
                       if (u.getPerfil() == 2) {
@@ -150,17 +147,42 @@
             <div class="jumbotron" style="border-radius: 10px 10px 10px 10px">
                 <center>
                     <div class="container">
-                        <%
-                            if (u != null) {
-                                Persona p = DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).searchNameByUser(u.getId());
-                                out.println("<br><br><br>");
-                                out.println("<h1 class='display-4' >" + p.getNombre() +" "+ p.getApellido()+"</h1>");
-                                out.println("<br>");
-                            }
-                        %>
+                        <form action="crearApoderadoServlet.do" method="post">
+                            
+                            <div class="form-group"> 
+                                Nombre:
+                                <input name="txtnombre" type="text" class="form-control" maxlength="8"  id="txtnombre" placeholder="Nombre:" required="required">
+                                
+                            </div>  
+
+                            <div class="form-group">
+                                Apellido:
+                                <input name="txtapellido" type="text" class="form-control" id="txtapellido" placeholder="Apellido: " required="required">
+                            </div>
+                            
+                            <div class="form-group">
+                                Perfil: <br>
+                                <select class="form-control" name ="selectperfil">
+                                    <option value="admin">Administrador</option>
+                                    <option value="docente">Docente</option>
+                                    <option value="alumno">Alumno</option>
+                                    <option value="apoderado">Apoderado</option>
+                                </select>
+                            </div>
+                            
+                            <center>
+                                <button  class="btn btn-primary navbar-custome" type="submit" value="Iniciar Sesion" name="iniciarsesion">
+                                    Crear Apoderado
+                                </button>
+                            </center>
+
+                            
+                            
+                        </form>
                     </div>
                 </center>
             </div>
         </div>
     </body>
 </html>
+
