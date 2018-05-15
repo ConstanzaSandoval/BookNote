@@ -5,14 +5,20 @@
  */
 package controller;
 
+import exception.MotorNoSoportadoException;
+import factories.DAOFactory;
 import factories.MySQL_PersonaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Persona;
 
 /**
  *
@@ -34,7 +40,26 @@ public class CrearPersona extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+            String nombre = request.getParameter("txtNombre");
+                String apellido = request.getParameter("txtApellido");
+                String perfilString = request.getParameter("selectperfil");
+                
+                int perfil = DAOFactory.getInstance().getPerfilDAO(DAOFactory.Motor.MY_SQL).searchPerfilByName(perfilString);
+
+                Persona p = new Persona();
+                p.setNombre(nombre);
+                p.setApellido(apellido);
+                p.setId_usuario(perfil);
+                
+                DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).create(p);
+
+                response.sendRedirect("sesion.jsp");
+        } catch (MotorNoSoportadoException ex) {
+            Logger.getLogger(CrearPersona.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CrearPersona.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrearPersona.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -61,16 +61,9 @@
                     %>
                 
                     <li>
-                        <a href="crearDocente.jsp">Docente</a>
+                        <a href="crearPersona.jsp">Crear Persona</a>
                     </li>
 
-                    <li>
-                        <a href="crearAlumno.jsp">Alumno</a>
-                    </li>
-                    
-                    <li>
-                        <a href="crearApoderado.jsp">Apoderado</a>
-                    </li>
                     <%
                        }
                     %></li>
@@ -154,8 +147,12 @@
                             if (u != null) {
                                 Persona p = DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).searchNameByUser(u.getId());
                                 out.println("<br><br><br>");
+                                if(u.getId() == 1){
+                                    out.println("<h1 class='display-4' >" + p.getNombre() +"</h1>");
+                                }else{
                                 out.println("<h1 class='display-4' >" + p.getNombre() +" "+ p.getApellido()+"</h1>");
                                 out.println("<br>");
+                                }
                             }
                         %>
                     </div>

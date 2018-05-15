@@ -100,7 +100,7 @@
                                 <button  class="btn btn-primary navbar-custome" type="submit" value="Registrar Usuario" name="registrar">
                                     Mandar Mensaje
                                 </button>
-                                <a href="sesionDocente.jsp" class="btn btn-primary navbar-custome" role="button" aria-pressed="false" >Volver</a>
+                                <a href="sesion.jsp" class="btn btn-primary navbar-custome" role="button" aria-pressed="false" >Volver</a>
 
                             </center>
                         </form>
