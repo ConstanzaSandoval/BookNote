@@ -40,6 +40,7 @@ create table persona (
     foreign key(id_usuario) references usuario(id)    
 ); -- select * from persona;
 
+insert into persona values(null, "Administrador", "Administrador", 1);
 insert into persona values(null, "Juan", "Perez", 2);
 insert into persona values(null, "Carlos", "Hernandez", 3);
 insert into persona values(null, "Franco", "Barrera", 4);
@@ -75,7 +76,7 @@ create table asignatura (
 ); -- select * from asignatura;
 
 insert into asignatura values(null, "calculo", 2, 90);
-
+--select * from persona where id_usuario = 1
 
 create table asignatura_alumno (
     id int auto_increment,
@@ -89,7 +90,7 @@ create table asignatura_alumno (
 );
 
 INSERT INTO asignatura_alumno VALUES (null,1,3,1);
-
+--select * from usuario where usuario.pass = AES_ENCRYPT ('admin', 'llave') and nickname = 'admin' and perfil = 1
 create table prueba(
     id int auto_increment,
     nombre varchar(50),

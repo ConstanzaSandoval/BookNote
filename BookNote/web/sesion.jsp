@@ -14,14 +14,14 @@
 
         <title>BookNote</title>
     </head>
-<%
-    Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+    <%
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 
-    if (u == null) {
-        request.getSession().setAttribute("error", new Error("Debe Ingresar sus Credenciales"));
-        request.getRequestDispatcher("inicio.jsp").forward(request, response);
-    }
-%>
+        if (u == null) {
+            request.getSession().setAttribute("error", new Error("Debe Ingresar sus Credenciales"));
+            request.getRequestDispatcher("inicio.jsp").forward(request, response);
+        }
+    %>
     <style>
         .navbar-nav.navbar-center {
             position: absolute;
@@ -56,31 +56,31 @@
 
             <ul class="nav navbar-nav navbar-center">
                 <li>
-                    <% 
-                      if (u.getPerfil() == 1) {
-                    %>
-                
-                    <li>
-                        <a href="crearDocente.jsp">Docente</a>
-                    </li>
-
-                    <li>
-                        <a href="crearAlumno.jsp">Alumno</a>
-                    </li>
-                    
-                    <li>
-                        <a href="crearApoderado.jsp">Apoderado</a>
-                    </li>
                     <%
-                       }
-                    %></li>
-                
-                
-                
-                
+                        if (u.getPerfil() == 1) {
+                    %>
+
                 <li>
-                    <% 
-                      if (u.getPerfil() == 2) {
+                    <a href="crearDocente.jsp">Docente</a>
+                </li>
+
+                <li>
+                    <a href="crearAlumno.jsp">Alumno</a>
+                </li>
+
+                <li>
+                    <a href="crearApoderado.jsp">Apoderado</a>
+                </li>
+                <%
+                    }
+                %></li>
+
+
+
+
+                <li>
+                    <%
+                        if (u.getPerfil() == 2) {
                     %>
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Notas<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -88,50 +88,50 @@
                         <li><a href="docenteMod.jsp">Modificar Nota</a></li>
                     </ul>
                 </li>
-                    <li>
-                        <a href="docenteAsistencia.jsp">Asistencia</a>
-                    </li>
+                <li>
+                    <a href="docenteAsistencia.jsp">Asistencia</a>
+                </li>
 
-                    <li>
-                        <a href="docenteMensaje.jsp">Mensajes</a>
-                    </li>
-                    <%
-                        }
-                    %> </li>  
-                    
-                    <% 
-                       if (u.getPerfil() == 3) {
-                    %>
+                <li>
+                    <a href="docenteMensaje.jsp">Mensajes</a>
+                </li>
+                <%
+                    }
+                %> </li>  
 
-                    <li>
-                        <a href="alumnoNota.jsp">Ver Notas</a>
-                    </li>
+                <%
+                    if (u.getPerfil() == 3) {
+                %>
 
-                    <li>
-                        <a href="alumnoMensaje.jsp">Avisos del Profesor</a>
-                    </li>
+                <li>
+                    <a href="alumnoNota.jsp">Ver Notas</a>
+                </li>
 
-                    <%
-                        }
-                    %>
-                
-                     <% 
-                       if (u.getPerfil() == 4) {
-                    %>
+                <li>
+                    <a href="alumnoMensaje.jsp">Avisos del Profesor</a>
+                </li>
 
-                    <li>
-                        <a href="papasAsistencia.jsp">Asistencia</a>
-                    </li>
+                <%
+                    }
+                %>
 
-                    <li>
-                        <a href="papasNotas.jsp">Notas</a>
-                    </li>
+                <%
+                    if (u.getPerfil() == 4) {
+                %>
 
-                    <%
-                        }
-                    %>
-                    
-                    
+                <li>
+                    <a href="papasAsistencia.jsp">Asistencia</a>
+                </li>
+
+                <li>
+                    <a href="papasNotas.jsp">Notas</a>
+                </li>
+
+                <%
+                    }
+                %>
+
+
             </ul>
 
             <ul class="nav navbar-nav navbar-right" style="padding-right: 10px">
@@ -154,8 +154,12 @@
                             if (u != null) {
                                 Persona p = DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).searchNameByUser(u.getId());
                                 out.println("<br><br><br>");
+                                if(u.getId() == 1){
+                                    out.println("<h1 class='display-4' >" + p.getNombre() +"</h1>");
+                                }else{
                                 out.println("<h1 class='display-4' >" + p.getNombre() +" "+ p.getApellido()+"</h1>");
                                 out.println("<br>");
+                                }
                             }
                         %>
                     </div>
