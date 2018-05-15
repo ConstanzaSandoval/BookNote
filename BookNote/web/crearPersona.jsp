@@ -61,16 +61,9 @@
                     %>
                 
                     <li>
-                        <a href="crearDocente.jsp">Docente</a>
+                        <a href="crearPersona.jsp">Crear Persona</a>
                     </li>
 
-                    <li>
-                        <a href="crearAlumno.jsp">Alumno</a>
-                    </li>
-                    
-                    <li>
-                        <a href="crearApoderado.jsp">Apoderado</a>
-                    </li>
                     <%
                        }
                     %></li>
@@ -133,7 +126,7 @@
 
             <ul class="nav navbar-nav navbar-right" style="padding-right: 10px">
                 <li>
-                    <form class="navbar-form pull-right" action="">
+                    <form class="navbar-form pull-right" action="cerrarSesionServlet.do">
                         <button type="submit" class="btn btn-danger">Cerrar sesión</button>
                     </form>
                 </li>
@@ -145,25 +138,25 @@
 
         <div class="container">
             <div class="jumbotron" style="border-radius: 10px 10px 10px 10px">
-                <center>
-                    <div class="container">
-                        <form action="crearApoderadoServlet.do" method="post">
-                            
+                <div class="row justify-content-xl-center">
+                    <div class="col-md-6 col-md-offset-3">
+                        <form action="crearPersona.do" method="post" >
+
                             <div class="form-group"> 
                                 Nombre:
-                                <input name="txtnombre" type="text" class="form-control" maxlength="8"  id="txtnombre" placeholder="Nombre:" required="required">
+                                <input name="txtNombre" type="text" class="form-control" maxlength="30"  id="txtNombre" placeholder="Nombre" required="required">
                                 
                             </div>  
 
                             <div class="form-group">
                                 Apellido:
-                                <input name="txtapellido" type="text" class="form-control" id="txtapellido" placeholder="Apellido: " required="required">
+                                <input name="txtApellido" type="text" class="form-control" id="txtApellido" placeholder="Apellido:  " required="required">
+                                
                             </div>
                             
                             <div class="form-group">
                                 Perfil: <br>
                                 <select class="form-control" name ="selectperfil">
-                                    <option value="admin">Administrador</option>
                                     <option value="docente">Docente</option>
                                     <option value="alumno">Alumno</option>
                                     <option value="apoderado">Apoderado</option>
@@ -172,17 +165,14 @@
                             
                             <center>
                                 <button  class="btn btn-primary navbar-custome" type="submit" value="Iniciar Sesion" name="iniciarsesion">
-                                    Crear Apoderado
+                                    Crear
                                 </button>
+                                <a href="sesion.jsp" class="btn btn-primary navbar-custome" role="button" aria-pressed="false" >Volver</a>
                             </center>
 
-                            
-                            
                         </form>
                     </div>
-                </center>
             </div>
         </div>
     </body>
 </html>
-

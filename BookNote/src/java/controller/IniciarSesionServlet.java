@@ -46,9 +46,10 @@ public class IniciarSesionServlet extends HttpServlet {
                 if (u != null) {
                     request.getSession().setAttribute("usuario", u);
                     request.getSession().removeAttribute("error");
+                    
                     response.sendRedirect("sesion.jsp");
 
-                } else {
+                } else if (u == null){
                     request.getSession().setAttribute("error", new Error("Datos Incorrectos"));
                     response.sendRedirect("inicio.jsp");
                 }

@@ -11,4 +11,5 @@ public interface UsuarioDAO {
     void update (Usuario u)throws SQLException;
     void delete (String id)throws SQLException;
     Usuario logIn(String nick, String pass, int perfil)throws SQLException;
+    int getIdLast()throws SQLException;
 }

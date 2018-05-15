@@ -56,28 +56,27 @@
 
             <ul class="nav navbar-nav navbar-center">
                 <li>
-                    <%
-                        if (u.getPerfil() == 1) {
+                    <% 
+                      if (u.getPerfil() == 1) {
                     %>
-
-                <li>
-                    <a href="crearDocente.jsp">Docente</a>
-                </li>
-
-                <li>
-                    <a href="crearAlumno.jsp">Alumno</a>
-                </li>
-
-                <li>
-                    <a href="crearApoderado.jsp">Apoderado</a>
-                </li>
-                <%
+                
+                    <li>
+                        <a href="crearPersona.jsp">Crear Persona</a>
+                    </li>
+                    <%    
+                        String username = request.getParameter("userNew");
+                        if(username!= null){
+                            
+                            %>
+                            
+                            <p style="align-content: flex-end" >El nuevo usuario creado es: 
+                    
+                    <% out.print(username+ "</p>");
+                        }
+                       
                     }
-                %></li>
-
-
-
-
+                    
+                    %>
                 <li>
                     <%
                         if (u.getPerfil() == 2) {
@@ -136,7 +135,7 @@
 
             <ul class="nav navbar-nav navbar-right" style="padding-right: 10px">
                 <li>
-                    <form class="navbar-form pull-right" action="">
+                    <form class="navbar-form pull-right" action="cerrarSesionServlet.do">
                         <button type="submit" class="btn btn-danger">Cerrar sesión</button>
                     </form>
                 </li>

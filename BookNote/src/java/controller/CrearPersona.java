@@ -5,13 +5,22 @@
  */
 package controller;
 
+import exception.MotorNoSoportadoException;
+import factories.DAOFactory;
+import factories.MySQL_PersonaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Persona;
+import model.Usuario;
 
 /**
  *
@@ -33,7 +42,43 @@ public class CrearPersona extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+            String nombre = request.getParameter("txtNombre");
+            String apellido = request.getParameter("txtApellido");
+            String perfilString = request.getParameter("selectperfil");
+
+            int perfil = DAOFactory.getInstance().getPerfilDAO(DAOFactory.Motor.MY_SQL).searchPerfilByName(perfilString);
+
+            Usuario u = new Usuario();
+            List<Usuario> usuarios = DAOFactory.getInstance().getUsuarioDAO(DAOFactory.Motor.MY_SQL).read();
+
+            String nick = nombre.substring(0, 1).toLowerCase().concat(apellido).toLowerCase();
+            for (int i = 0; i < usuarios.size(); i++) {
+
+                Usuario us = usuarios.get(i);
+                System.out.println(usuarios.get(i).getNickname());
+                while (us.getNickname().equalsIgnoreCase(nick)) {
+                    int diferenciador = 1; 
+                    nick = nick.concat(Integer.toString(diferenciador));
+                    diferenciador ++;
+                }
+
+            }
+            u.setNickname(nick);
+            u.setPass("123");
+            u.setPerfil(perfil);
+            DAOFactory.getInstance().getUsuarioDAO(DAOFactory.Motor.MY_SQL).create(u);
+            System.out.println(nick);
+
+            Persona p = new Persona();
+            p.setNombre(nombre);
+            p.setApellido(apellido);
+            p.setId_usuario(DAOFactory.getInstance().getUsuarioDAO(DAOFactory.Motor.MY_SQL).getIdLast());
+
+            DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).create(p);
+
+            response.sendRedirect("sesion.jsp?userNew="+nick);
+        } catch (MotorNoSoportadoException | ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(CrearPersona.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

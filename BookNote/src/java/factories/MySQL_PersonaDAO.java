@@ -91,4 +91,31 @@ public class MySQL_PersonaDAO implements PersonaDAO {
 
         return p;
     }
+    
+    @Override
+    public List<Persona> getNameByAsignatura(String asignatura) throws SQLException{
+        sql = "select persona.id, persona.nombre, persona.apellido "
+                + "from asignatura_alumno, persona, asignatura "
+                + "where asignatura.nombre like'%"+asignatura+"%' and asignatura_alumno.id_alumno = persona.id";
+
+        List <Persona> alumnos = null;
+
+        rs = c.ejecutarSelec(sql);
+
+       
+            while (rs.next()) {
+                alumnos = new ArrayList<>();
+                Persona a = new Persona();
+                a.setId( rs.getInt(1));
+                a.setNombre(rs.getString(2));
+                a.setApellido(rs.getString(3));
+                
+                alumnos.add(a);
+            }
+        
+
+        c.close();
+
+        return alumnos;
+    }
 }

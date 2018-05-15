@@ -40,6 +40,7 @@ create table persona (
     foreign key(id_usuario) references usuario(id)    
 ); -- select * from persona;
 
+
 insert into persona values(null, "Administrador", "Administrador", 1);
 insert into persona values(null, "Juan", "Perez", 2);
 insert into persona values(null, "Carlos", "Hernandez", 3);
@@ -117,6 +118,9 @@ create table mensaje (
 --drop table mensaje
 INSERT INTO mensaje VALUES (null,'me da un completo',NOW(),1);
 
+--select persona.id, persona.nombre, persona.apellido 
+from asignatura_alumno, persona, asignatura 
+where asignatura.nombre like'%calculo%' and asignatura_alumno.id_alumno = persona.id
 
 /*DELIMITER $$
 CREATE FUNCTION crear_usuario (nickn VARCHAR(50),passw VARCHAR(50)) RETURNS BOOLEAN -- DROP FUNCTION crear_usuario

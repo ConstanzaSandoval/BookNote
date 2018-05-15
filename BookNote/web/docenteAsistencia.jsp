@@ -77,7 +77,7 @@
            
             <ul class="nav navbar-nav navbar-right" style="padding-right: 10px">
                 <li>
-                    <form class="navbar-form pull-right" action="">
+                    <form class="navbar-form pull-right" action="cerrarSesionServlet.do">
                         <button type="submit" class="btn btn-danger">Cerrar sesión</button>
                     </form>
                 </li>
@@ -114,7 +114,7 @@
                                 <button  class="btn btn-primary navbar-custome" type="submit" value="Registrar Usuario" name="registrar">
                                     Guardar Cambios
                                 </button>
-                                <a href="sesionDocente.jsp" class="btn btn-primary navbar-custome" role="button" aria-pressed="false" >Volver</a>
+                                <a href="sesion.jsp" class="btn btn-primary navbar-custome" role="button" aria-pressed="false" >Volver</a>
 
                             </center>
                         </form>

@@ -21,7 +21,7 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
 
     @Override
     public void create(Usuario u) throws SQLException {
-        sql = "insert into usuario value(null, " + u.getNickname() + ", AES_ENCRYPT (" + u.getPass() + ", llave), " + u.getPerfil() + ");";
+        sql = "insert into usuario values(null, '" + u.getNickname() + "', AES_ENCRYPT ('" + u.getPass() + "', 'llave'), " + u.getPerfil() + ");";
         c.ejecutar(sql);
     }
 
@@ -63,11 +63,11 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
     }
 
     @Override
-    public Usuario logIn(String nick, String pass, int perfil) throws SQLException { 
+    public Usuario logIn(String nick, String pass, int perfil) throws SQLException {
         sql = "select * from usuario where "
-                + "usuario.pass = AES_ENCRYPT ('"+pass+"', 'llave') and "
-                + "nickname = '"+nick+"' and "
-                + "perfil = "+perfil;
+                + "usuario.pass = AES_ENCRYPT ('" + pass + "', 'llave') and "
+                + "nickname = '" + nick + "' and "
+                + "perfil = " + perfil;
         rs = c.ejecutarSelec(sql);
 
         Usuario u = new Usuario();
@@ -82,6 +82,19 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
         c.close();
 
         return u;
+    }
+
+    @Override
+    public int getIdLast() throws SQLException {
+
+        sql = "select max(id) from usuario";
+        int id = 0;
+        rs = c.ejecutarSelec(sql);
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+        c.close();
+        return id;
     }
 
 }
