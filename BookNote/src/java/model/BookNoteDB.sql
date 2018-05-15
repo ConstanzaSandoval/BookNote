@@ -40,6 +40,7 @@ create table persona (
     foreign key(id_usuario) references usuario(id)    
 ); -- select * from persona;
 
+insert into persona values(null,"Administrador","Administrador",1);
 insert into persona values(null, "Juan", "Perez", 2);
 insert into persona values(null, "Carlos", "Hernandez", 3);
 insert into persona values(null, "Franco", "Barrera", 4);

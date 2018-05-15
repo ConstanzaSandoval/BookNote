@@ -136,7 +136,7 @@
 
             <ul class="nav navbar-nav navbar-right" style="padding-right: 10px">
                 <li>
-                    <form class="navbar-form pull-right" action="">
+                    <form class="navbar-form pull-right" action="cerrarSesionServlet.do">
                         <button type="submit" class="btn btn-danger">Cerrar sesión</button>
                     </form>
                 </li>
