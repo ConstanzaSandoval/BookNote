@@ -1,4 +1,5 @@
-<%@page import="model.Persona"%>
+<%@page import="model.Asignatura"%>
+<%@page import="java.util.List"%>
 <%@page import="factories.DAOFactory"%>
 <%@page import="model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -104,6 +105,10 @@
                     <li>
                         <a href="alumnoMensaje.jsp">Avisos del Profesor</a>
                     </li>
+                    
+                    <li>
+                        <a href="alumnoAsignatura.jsp">Registrar Asignatura</a>
+                    </li>
 
                     <%
                         }
@@ -144,32 +149,27 @@
             <div class="jumbotron" style="border-radius: 10px 10px 10px 10px">
                 <div class="row justify-content-xl-center">
                     <div class="col-md-6 col-md-offset-3">
-                        <form action="crearPersona.do" method="post" >
+                        <form action="crearAsignatura.do" method="post" >
 
-                            <div class="form-group"> 
-                                Nombre:
-                                <input name="txtNombre" type="text" class="form-control" maxlength="30"  id="txtNombre" placeholder="Nombre" required="required">
-                                
-                            </div>  
-
-                            <div class="form-group">
-                                Apellido:
-                                <input name="txtApellido" type="text" class="form-control" id="txtApellido" placeholder="Apellido:  " required="required">
-                                
-                            </div>
                             
+
                             <div class="form-group">
-                                Perfil: <br>
-                                <select class="form-control" name ="selectperfil">
-                                    <option value="docente">Docente</option>
-                                    <option value="alumno">Alumno</option>
-                                    <option value="apoderado">Apoderado</option>
+                                asignatura:
+                                <select class="form-control" name ="selectAsignatura" >
+                                <% 
+                                    List<Asignatura> asignatura = DAOFactory.getInstance().getAsignaturaDAO(DAOFactory.Motor.MY_SQL).read();
+                                    for(Asignatura a : asignatura){
+                                        out.println("<option value="+a.getId()+">"+a.getNombre()+ "</option>");
+                                    }
+                                
+                                %>
                                 </select>
                             </div>
                             
+                            
                             <center>
                                 <button  class="btn btn-primary navbar-custome" type="submit" value="Iniciar Sesion" name="iniciarsesion">
-                                    Crear
+                                    Añadir Asignatura
                                 </button>
                                 <a href="sesion.jsp" class="btn btn-primary navbar-custome" role="button" aria-pressed="false" >Volver</a>
                             </center>

@@ -11,4 +11,5 @@ public interface PersonaDAO {
     void delete (String id)throws SQLException;
     Persona searchNameByUser(int idUser)throws SQLException;
     List<Persona> getNameByAsignatura(String asignatura)throws SQLException;        
+    List<Persona> getNameDocente()throws SQLException;        
 }

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller;
 
 import exception.MotorNoSoportadoException;
@@ -12,14 +17,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Usuario;
+import model.Asignatura;
 
 /**
  *
  * @author pabli
  */
-@WebServlet(name = "IniciarSesionServlet", urlPatterns = {"/iniciarSesion.do"})
-public class IniciarSesionServlet extends HttpServlet {
+@WebServlet(name = "CrearAsignatura", urlPatterns = {"/crearAsignatura.do"})
+public class CrearAsignatura extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,29 +39,19 @@ public class IniciarSesionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String parametro = request.getParameter("parametro");
-            if (parametro != null) {
-                String user = request.getParameter("txtUsuario");
-                String pass = request.getParameter("txtContrasenia");
-                String perfilString = request.getParameter("selectperfil");
-                int perfil = DAOFactory.getInstance().getPerfilDAO(DAOFactory.Motor.MY_SQL).searchPerfilByName(perfilString);
-
-                Usuario u = DAOFactory.getInstance().getUsuarioDAO(DAOFactory.Motor.MY_SQL).logIn(user, pass, perfil);
-
-                if (u != null) {
-                    request.getSession().setAttribute("usuario", u);
-                    request.getSession().removeAttribute("error");
-                    
-                    response.sendRedirect("sesion.jsp");
-
-                } else{
-                    request.getSession().setAttribute("error", new Error("Datos Incorrectos"));
-                    response.sendRedirect("inicio.jsp");
-                }
-            }
-
-        } catch (MotorNoSoportadoException | ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(IniciarSesionServlet.class.getName()).log(Level.SEVERE, null, ex);
+            /* TODO output your page here. You may use following sample code. */
+            String nombre = request.getParameter("selectAsignatura");
+            Asignatura a = new Asignatura();
+            
+            a.setNombre("selectAsignatura");
+            
+            DAOFactory.getInstance().getAsignaturaDAO(DAOFactory.Motor.MY_SQL).create(a);
+        } catch (MotorNoSoportadoException ex) {
+            Logger.getLogger(CrearAsignatura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CrearAsignatura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrearAsignatura.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

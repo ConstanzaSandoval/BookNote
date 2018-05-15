@@ -19,7 +19,7 @@
 
         if (u == null) {
             request.getSession().setAttribute("error", new Error("Debe Ingresar sus Credenciales"));
-            request.getRequestDispatcher("inicio.jsp").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     %>
     <style>
@@ -63,20 +63,14 @@
                     <li>
                         <a href="crearPersona.jsp">Crear Persona</a>
                     </li>
-                    <%    
-                        String username = request.getParameter("userNew");
-                        if(username!= null){
-                            
-                            %>
-                            
-                            <p style="align-content: flex-end" >El nuevo usuario creado es: 
                     
-                    <% out.print(username+ "</p>");
-                        }
-                       
-                    }
-                    
+                    <li>
+                        <a href="crearAsignaturaD.jsp">Añadir Asignatura</a>
+                    </li>
+                    <%
+                      }
                     %>
+                   
                 <li>
                     <%
                         if (u.getPerfil() == 2) {
@@ -108,6 +102,10 @@
 
                 <li>
                     <a href="alumnoMensaje.jsp">Avisos del Profesor</a>
+                </li>
+                
+                <li>
+                    <a href="alumnoAsignatura.jsp">Registrar Asignatura</a>
                 </li>
 
                 <%
@@ -161,6 +159,23 @@
                                 }
                             }
                         %>
+                     
+                        <%
+                            if (u.getPerfil() == 1) {
+                                String username = request.getParameter("userNew");
+                                if (username != null) {
+
+                        %>
+
+                        <p style="align-content: flex-end" >El nuevo usuario creado es: 
+
+                            <% out.print(username + "</p>");
+                                    }
+
+                                }
+
+                            %>
+                        
                     </div>
                 </center>
             </div>

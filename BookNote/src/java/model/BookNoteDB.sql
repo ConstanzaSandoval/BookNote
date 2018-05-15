@@ -29,7 +29,7 @@ insert into usuario value(null,"admin", AES_ENCRYPT ("admin", "llave"), 1);
 insert into usuario value(null,"jperez", AES_ENCRYPT ("jperez123", "llave"), 2);
 insert into usuario value(null,"chernandez", AES_ENCRYPT ("12cherna", "llave"), 3);
 insert into usuario value(null,"fbarrera", AES_ENCRYPT ("12fbarrera", "llave"), 4);
-select * from usuario
+select * from usuario;
 
 create table persona (
     id int auto_increment,
@@ -52,7 +52,7 @@ create table asistencia (
     asistio boolean,
     primary key (id)
 );
---select * from asistencia
+--select * from asistencia;
 
 insert into asistencia value(null,now(),true);
 insert into asistencia value(null,now(),false);

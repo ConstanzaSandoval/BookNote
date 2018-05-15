@@ -56,7 +56,7 @@
 
                             <div class="form-group"> 
                                 Usuario:
-                                <input name="txtUsuario" type="text" class="form-control" maxlength="8"  id="txtUsuario" placeholder="Usuario:" required="required">
+                                <input name="txtUsuario" type="text" class="form-control"   id="txtUsuario" placeholder="Usuario:" required="required">
                                 
                             </div>  
 
@@ -86,6 +86,7 @@
                     </div>
                 </div>
             </div>
+            
             <%  
                 Error e = (Error) request.getSession().getAttribute("error");
                 if (e != null) {
@@ -93,6 +94,7 @@
                     request.getSession().removeAttribute("error");
                 }
             %>
+            
         </div>
         
     </body>

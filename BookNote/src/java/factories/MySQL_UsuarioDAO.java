@@ -70,9 +70,10 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
                 + "perfil = " + perfil;
         rs = c.ejecutarSelec(sql);
 
-        Usuario u = new Usuario();
+        Usuario u = null;
 
         if (rs.next()) {
+            u = new Usuario();
             u.setId(rs.getInt(1));
             u.setNickname(rs.getString(2));
             u.setPass(rs.getString(3));

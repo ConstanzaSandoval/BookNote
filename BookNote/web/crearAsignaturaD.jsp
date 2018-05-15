@@ -1,4 +1,5 @@
 <%@page import="model.Persona"%>
+<%@page import="java.util.List"%>
 <%@page import="factories.DAOFactory"%>
 <%@page import="model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -148,28 +149,31 @@
 
                             <div class="form-group"> 
                                 Nombre:
-                                <input name="txtNombre" type="text" class="form-control" maxlength="30"  id="txtNombre" placeholder="Nombre" required="required">
+                                <input name="txtNombre" type="text" class="form-control" maxlength="30"  id="txtNombre" placeholder="Nombre Asignatura:" required="required">
                                 
                             </div>  
 
                             <div class="form-group">
-                                Apellido:
-                                <input name="txtApellido" type="text" class="form-control" id="txtApellido" placeholder="Apellido:  " required="required">
+                                Docente:
+                                <select class="form-control" name ="selectdocente" >
+                                <% 
+                                    List<Persona> persona = DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).getNameDocente();
+                                    for(Persona p : persona){
+                                        out.println("<option value="+p.getId()+">"+p.getNombre()+" "+p.getApellido()+ "</option>");
+                                    }
                                 
+                                %>
+                                </select>
                             </div>
                             
                             <div class="form-group">
-                                Perfil: <br>
-                                <select class="form-control" name ="selectperfil">
-                                    <option value="docente">Docente</option>
-                                    <option value="alumno">Alumno</option>
-                                    <option value="apoderado">Apoderado</option>
-                                </select>
+                                Asistencia: <br>
+                                <input name="txtAsistencia" type="number" class="form-control" id="txtAsistencia" placeholder="Asistencia:" required="required">
                             </div>
                             
                             <center>
                                 <button  class="btn btn-primary navbar-custome" type="submit" value="Iniciar Sesion" name="iniciarsesion">
-                                    Crear
+                                    Añadir Asignatura:
                                 </button>
                                 <a href="sesion.jsp" class="btn btn-primary navbar-custome" role="button" aria-pressed="false" >Volver</a>
                             </center>
