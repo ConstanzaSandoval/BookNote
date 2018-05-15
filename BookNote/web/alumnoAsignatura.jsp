@@ -151,8 +151,7 @@
                     <div class="col-md-6 col-md-offset-3">
                         <form action="crearAsignatura.do" method="post" >
 
-                            
-
+                        
                             <div class="form-group">
                                 asignatura:
                                 <select class="form-control" name ="selectAsignatura" >

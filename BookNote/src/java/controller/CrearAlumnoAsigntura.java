@@ -1,30 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
-import exception.MotorNoSoportadoException;
-import factories.DAOFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Asignatura;
 
-/**
- *
- * @author pabli
- */
-@WebServlet(name = "CrearAsignatura", urlPatterns = {"/crearAsignatura.do"})
-public class CrearAsignatura extends HttpServlet {
+@WebServlet(name = "AlumnoAsigntura", urlPatterns = {"/crearAlumnoAsigntura.do"})
+public class CrearAlumnoAsigntura extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,20 +24,7 @@ public class CrearAsignatura extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String nombre = request.getParameter("selectAsignatura");
-            Asignatura a = new Asignatura();
             
-            a.setNombre("selectAsignatura");
-            
-            DAOFactory.getInstance().getAsignaturaDAO(DAOFactory.Motor.MY_SQL).create(a);
-            
-        } catch (MotorNoSoportadoException ex) {
-            Logger.getLogger(CrearAsignatura.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CrearAsignatura.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(CrearAsignatura.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

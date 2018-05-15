@@ -46,17 +46,6 @@ insert into persona values(null, "Juan", "Perez", 2);
 insert into persona values(null, "Carlos", "Hernandez", 3);
 insert into persona values(null, "Franco", "Barrera", 4);
 
-create table asistencia (
-    id int auto_increment,
-    fecha datetime,
-    asistio boolean,
-    primary key (id)
-);
---select * from asistencia;
-
-insert into asistencia value(null,now(),true);
-insert into asistencia value(null,now(),false);
-
 create table alumnoApoderado (
     id int auto_increment,
     fk_alumno int,
@@ -79,18 +68,31 @@ create table asignatura (
 insert into asignatura values(null, "calculo", 2, 90);
 --select * from persona where id_usuario = 1
 
+create table asistencia (
+    id int auto_increment,
+    id_alumno int,
+    id_asignatura int,
+    fecha datetime,
+    asistio boolean,
+    primary key (id),
+    foreign key(id_alumno) references persona(id),
+    foreign key(id_asignatura) references asignatura(id)
+);
+--select * from asistencia;
+
+insert into asistencia value(null,1,1,now(),true);
+insert into asistencia value(null,2,1,now(),false);
+
 create table asignatura_alumno (
     id int auto_increment,
     id_asignatura int,
     id_alumno int,
-    id_asistencia INT,
     primary key (id),
     foreign key(id_asignatura) references asignatura(id),
-    foreign key(id_asistencia) references asistencia(id),
     foreign key(id_alumno) references persona(id)     
-);
+); -- select * from asignatura_alumno;
 
-INSERT INTO asignatura_alumno VALUES (null,1,3,1);
+INSERT INTO asignatura_alumno VALUES (null,1,3);
 --select * from usuario where usuario.pass = AES_ENCRYPT ('admin', 'llave') and nickname = 'admin' and perfil = 1
 create table prueba(
     id int auto_increment,

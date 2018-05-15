@@ -21,7 +21,7 @@ public class MySQL_Asignatura_alumnoDAO implements Asignatura_alumnoDAO {
 
     @Override
     public void create(AsignaturaAlumno asa) throws SQLException {
-        sql = "insert into asignatura_alumno value(null," + asa.getId_asignatura() + "," + asa.getId_asignatura() + "," + asa.getId_asistencia() + ")";
+        sql = "insert into asignatura_alumno value(null," + asa.getId_asignatura() + "," + asa.getId_alumno() + "," + asa.getId_asistencia() + ")";
         c.ejecutar(sql);
     }
 
