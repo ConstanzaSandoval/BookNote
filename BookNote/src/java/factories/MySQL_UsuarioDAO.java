@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Usuario;
 
 public class MySQL_UsuarioDAO implements UsuarioDAO {
@@ -67,8 +65,8 @@ public class MySQL_UsuarioDAO implements UsuarioDAO {
     @Override
     public Usuario logIn(String nick, String pass, int perfil) throws SQLException { 
         sql = "select * from usuario where "
-                + "usuario.pass = AES_ENCRYPT ("+pass+", llave) and "
-                + "nickname = "+nick+" and "
+                + "usuario.pass = AES_ENCRYPT ('"+pass+"', 'llave') and "
+                + "nickname = '"+nick+"' and "
                 + "perfil = "+perfil;
         rs = c.ejecutarSelec(sql);
 

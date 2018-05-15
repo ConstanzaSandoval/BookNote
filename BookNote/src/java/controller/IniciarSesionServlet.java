@@ -34,23 +34,27 @@ public class IniciarSesionServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String user = request.getParameter("txtUsuario");
-            String pass = request.getParameter("txtContraeña");
-            int perfil = Integer.parseInt(request.getParameter("selectperfil"));
-            
-            
-            Usuario u = DAOFactory.getInstance().getUsuarioDAO(DAOFactory.Motor.MY_SQL).logIn(user, pass, perfil);
-            
-           if (u != null) {
-                request.getSession().setAttribute("usuario", u);
-                request.getSession().removeAttribute("error");
-                response.sendRedirect("sesion.jsp");
-                
-            }else{
-                request.getSession().setAttribute("error", new Error("Datos Incorrectos"));
-                response.sendRedirect("inicio.jsp");
+            String parametro = request.getParameter("parametro");
+            if (parametro != null) {
+                String user = request.getParameter("txtUsuario");
+                String pass = request.getParameter("txtContrasenia");
+                String perfilString = request.getParameter("selectperfil");
+                int perfil = DAOFactory.getInstance().getPerfilDAO(DAOFactory.Motor.MY_SQL).searchPerfilByName(perfilString);
+
+                Usuario u = DAOFactory.getInstance().getUsuarioDAO(DAOFactory.Motor.MY_SQL).logIn(user, pass, perfil);
+
+                if (u != null) {
+                    request.getSession().setAttribute("usuario", u);
+                    request.getSession().removeAttribute("error");
+                    response.sendRedirect("sesion.jsp");
+
+                } else {
+                    request.getSession().setAttribute("error", new Error("Datos Incorrectos"));
+                    response.sendRedirect("inicio.jsp");
+                }
+
             }
-            
+
         } catch (MotorNoSoportadoException | ClassNotFoundException | SQLException ex) {
             Logger.getLogger(IniciarSesionServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

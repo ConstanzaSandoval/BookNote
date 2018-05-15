@@ -12,6 +12,8 @@ insert into perfil values(null,"administrador");
 insert into perfil values(null,"docente");
 insert into perfil values(null,"alumno");
 insert into perfil values(null,"apoderado");
+--select * from perfil
+--select id from perfil where perfil.perfil like '%docente%'
 
 create table usuario(
     id int auto_increment,
@@ -55,13 +57,13 @@ insert into asistencia value(null,now(),false);
 
 create table alumnoApoderado (
     id int auto_increment,
-    id_alumno int,
-    id_apoderado int,
+    fk_alumno int,
+    fk_apoderado int,
     primary key (id),
-    foreign key(id_apoderado) references persona(id), 
-    foreign key(id_alumno) references persona(id)  
+    foreign key(fk_alumno) references persona(id),
+    foreign key(fk_apoderado) references persona(id)
 );
-Insert into alumnoApoderado values(null, 4, 2);
+Insert into alumnoApoderado values(null, 3, 1);
 
 create table asignatura (
     id int auto_increment,
@@ -100,18 +102,18 @@ create table prueba(
     foreign key(id_alumno) references persona(id)
 );
 
-insert into prueba value(null,"prueba 1",5.5,0.25,1,1);
+insert into prueba value(null,"prueba 1",5.5,0.25,1,3);
 
 
 create table mensaje (
     id int auto_increment,
-    texto varchar (500),
-    fecha datetime,
+    texto varchar(500),
+    fecha date,
     id_asignatura int,
     primary key (id),
     foreign key(id_asignatura) references asignatura(id)    
 ); -- select * from mensaje;
-
+--drop table mensaje
 INSERT INTO mensaje VALUES (null,'me da un completo',NOW(),1);
 
 

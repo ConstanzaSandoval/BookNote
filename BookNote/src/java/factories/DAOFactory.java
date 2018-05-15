@@ -5,6 +5,7 @@ import dao.Asignatura_alumnoDAO;
 import dao.AsistenciaDAO;
 
 import dao.MensajeDAO;
+import dao.PerfilDAO;
 import dao.PruebaDAO;
 import dao.UsuarioDAO;
 import exception.MotorNoSoportadoException;
@@ -90,6 +91,15 @@ public class DAOFactory {
         switch (motor) {
             case MY_SQL:
                 return new MySQL_UsuarioDAO();
+            default:
+                throw new MotorNoSoportadoException(motor + " no soportado");
+        }
+    }
+    
+    public PerfilDAO getPerfilDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
+        switch (motor) {
+            case MY_SQL:
+                return new MySQL_PerfilDAO();
             default:
                 throw new MotorNoSoportadoException(motor + " no soportado");
         }

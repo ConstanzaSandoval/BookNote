@@ -4,19 +4,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">S
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
         <title>BookNote</title>
     </head>
-<%
-    Usuario u = (Usuario) request.getSession().getAttribute("usuario");
 
-    if (u == null) {
-        request.getSession().setAttribute("error", new Error("Debe Ingresar sus Credenciales"));
-        request.getRequestDispatcher("inicio.jsp").forward(request, response);
-    }
-%>
     <style>
     .navbar-nav.navbar-center {
         position: absolute;
@@ -56,10 +49,10 @@
         
         <div class="container">
             <div class="jumbotron" style="border-radius: 10px 10px 10px 10px">
-                <center><h1>Iniciar Sesion</h1></center>
+                <center><h1>Iniciar Sesión</h1></center>
                 <div class="row justify-content-xl-center">
                     <div class="col-md-6 col-md-offset-3">
-                        <form action="iniciarSesion.do" method="post">
+                        <form action="iniciarSesion.do?parametro=sesion" method="post" >
 
                             <div class="form-group"> 
                                 Usuario:
@@ -69,7 +62,8 @@
 
                             <div class="form-group">
                                 Contraseña:
-                                <input name="txtContraeña" type="password" class="form-control" id="inputNombre" placeholder="Contraseña: " required="required">
+                                <input name="txtContrasenia" type="password" class="form-control" id="inputNombre" placeholder="Contraseña: " required="required">
+                                
                             </div>
                             
                             <div class="form-group">
