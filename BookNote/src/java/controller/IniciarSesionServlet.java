@@ -52,7 +52,6 @@ public class IniciarSesionServlet extends HttpServlet {
                     request.getSession().setAttribute("error", new Error("Datos Incorrectos"));
                     response.sendRedirect("inicio.jsp");
                 }
-
             }
 
         } catch (MotorNoSoportadoException | ClassNotFoundException | SQLException ex) {

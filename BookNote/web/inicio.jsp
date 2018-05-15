@@ -69,10 +69,10 @@
                             <div class="form-group">
                                 Perfil: <br>
                                 <select class="form-control" name ="selectperfil">
+                                    <option value="admin">Administrador</option>
                                     <option value="docente">Docente</option>
                                     <option value="alumno">Alumno</option>
                                     <option value="apoderado">Apoderado</option>
-                                    <option value="admin">Administrador</option>
                                 </select>
                             </div>
                             
