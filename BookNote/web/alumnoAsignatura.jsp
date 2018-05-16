@@ -112,6 +112,10 @@
                 <li>
                     <a href="alumnoAsignatura.jsp">Registrar Asignatura</a>
                 </li>
+                
+                <li>
+                    <a href="alumnoContrasenia.jsp">Cambiar Contraseña</a>
+                </li>
 
                 <%
                     }

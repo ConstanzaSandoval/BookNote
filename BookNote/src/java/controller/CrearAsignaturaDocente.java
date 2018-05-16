@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller;
 
 import exception.MotorNoSoportadoException;
@@ -12,10 +17,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.AsignaturaAlumno;
+import model.Asignatura;
 
-@WebServlet(name = "AlumnoAsigntura", urlPatterns = {"/crearAlumnoAsigntura.do"})
-public class CrearAlumnoAsigntura extends HttpServlet {
+/**
+ *
+ * @author pabli
+ */
+@WebServlet(name = "CrearAsignaturaDocente", urlPatterns = {"/crearAsignaturaDocente.do"})
+public class CrearAsignaturaDocente extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,26 +39,30 @@ public class CrearAlumnoAsigntura extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            String nombre = request.getParameter("txtNombre");
+            String docente = request.getParameter("selectdocente");
+            String asistencia = request.getParameter("txtAsistencia");
             
-            int id_asignatura = Integer.parseInt(request.getParameter("selectAsignatura"));
-            int id_alumno = Integer.parseInt(request.getParameter("id_alum"));
+            int perfil = DAOFactory.getInstance().getPerfilDAO(DAOFactory.Motor.MY_SQL).searchPerfilByName(docente);
+            int asis = Integer.parseInt(asistencia);
             
-            System.out.println(id_asignatura+","+id_alumno);
+            Asignatura a = new Asignatura();
             
-            AsignaturaAlumno asiAlu = new AsignaturaAlumno();
-            asiAlu.setId_asignatura(id_asignatura);
-            asiAlu.setId_alumno(id_alumno);
+            a.setNombre(nombre);
+            a.setId_docente(perfil);
+            a.setAsistencia(asis);
             
-            DAOFactory.getInstance().getAsignatura_alumnoDAO(DAOFactory.Motor.MY_SQL).create(asiAlu);
+            DAOFactory.getInstance().getAsignaturaDAO(DAOFactory.Motor.MY_SQL).create(a);
             
-            response.sendRedirect("alumnoAsignatura.jsp");
+            response.sendRedirect("sesion.jsp");
             
         } catch (MotorNoSoportadoException ex) {
-            Logger.getLogger(CrearAlumnoAsigntura.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrearAsignaturaDocente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CrearAlumnoAsigntura.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrearAsignaturaDocente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(CrearAlumnoAsigntura.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrearAsignaturaDocente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
