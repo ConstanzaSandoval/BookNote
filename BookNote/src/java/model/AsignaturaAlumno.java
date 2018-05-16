@@ -14,7 +14,6 @@ public class AsignaturaAlumno {
         this.id = id;
         this.id_asignatura = id_asignatura;
         this.id_alumno = id_alumno;
-        this.id_asistencia = id_asistencia;
     }
 
     public int getId() {
@@ -39,14 +38,6 @@ public class AsignaturaAlumno {
 
     public void setId_alumno(int id_alumno) {
         this.id_alumno = id_alumno;
-    }
-
-    public int getId_asistencia() {
-        return id_asistencia;
-    }
-
-    public void setId_asistencia(int id_asistencia) {
-        this.id_asistencia = id_asistencia;
     }
 
     @Override

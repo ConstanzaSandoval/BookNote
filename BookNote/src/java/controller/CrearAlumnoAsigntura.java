@@ -1,12 +1,18 @@
 package controller;
 
+import exception.MotorNoSoportadoException;
+import factories.DAOFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.AsignaturaAlumno;
 
 @WebServlet(name = "AlumnoAsigntura", urlPatterns = {"/crearAlumnoAsigntura.do"})
 public class CrearAlumnoAsigntura extends HttpServlet {
@@ -25,6 +31,25 @@ public class CrearAlumnoAsigntura extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
+            int id_asignatura = Integer.parseInt(request.getParameter("id_asig"));
+            int id_alumno = Integer.parseInt(request.getParameter("id_alum"));
+            
+            System.out.println(id_asignatura+","+id_alumno);
+            
+            AsignaturaAlumno asiAlu = new AsignaturaAlumno();
+            asiAlu.setId_asignatura(id_asignatura);
+            asiAlu.setId_alumno(id_alumno);
+            
+            DAOFactory.getInstance().getAsignatura_alumnoDAO(DAOFactory.Motor.MY_SQL).create(asiAlu);
+            
+            response.sendRedirect("alumnoAsignatura.jsp");
+            
+        } catch (MotorNoSoportadoException ex) {
+            Logger.getLogger(CrearAlumnoAsigntura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CrearAlumnoAsigntura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrearAlumnoAsigntura.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

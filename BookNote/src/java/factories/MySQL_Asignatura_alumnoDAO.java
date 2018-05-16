@@ -21,7 +21,7 @@ public class MySQL_Asignatura_alumnoDAO implements Asignatura_alumnoDAO {
 
     @Override
     public void create(AsignaturaAlumno asa) throws SQLException {
-        sql = "insert into asignatura_alumno value(null," + asa.getId_asignatura() + "," + asa.getId_alumno() + "," + asa.getId_asistencia() + ")";
+        sql = "insert into asignatura_alumno value(null," + asa.getId_asignatura() + "," + asa.getId_alumno() + ")";
         c.ejecutar(sql);
     }
 
@@ -42,7 +42,6 @@ public class MySQL_Asignatura_alumnoDAO implements Asignatura_alumnoDAO {
                 asa.setId(rs.getInt(1));
                 asa.setId_asignatura(rs.getInt(2));
                 asa.setId_alumno(rs.getInt(3));
-                asa.setId_asistencia(rs.getInt(4));
                 
                 asignatura_alumno.add(asa);
             }
@@ -55,7 +54,7 @@ public class MySQL_Asignatura_alumnoDAO implements Asignatura_alumnoDAO {
 
     @Override
     public void update(AsignaturaAlumno asa) throws SQLException {
-        sql = "update asignatura_alumno set id_asignatura = '" + asa.getId_asignatura() + "', id_alumno = " + asa.getId_alumno() + ", id_asistencia = " + asa.getId_asistencia() + " where id = " + asa.getId() + "";
+        sql = "update asignatura_alumno set id_asignatura = '" + asa.getId_asignatura() + "', id_alumno = " + asa.getId_alumno() + " where id = " + asa.getId() + "";
         c.ejecutar(sql);
     }
 

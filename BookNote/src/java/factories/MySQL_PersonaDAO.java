@@ -92,6 +92,7 @@ public class MySQL_PersonaDAO implements PersonaDAO {
         return p;
     }
     
+    
     @Override
     public List<Persona> getNameByAsignatura(String asignatura) throws SQLException{
         sql = "select persona.id, persona.nombre, persona.apellido "
@@ -142,6 +143,22 @@ public class MySQL_PersonaDAO implements PersonaDAO {
         c.close();
 
         return docentes;
+    }
+    
+    @Override
+    public int getIdAlumno(int id_usu) throws SQLException{
+        sql = "select id from persona where id_usuario = "+id_usu;
+        
+        Persona p = new Persona();
+        
+        rs = c.ejecutarSelec(sql);
+        
+        if(rs.next()){
+            p.setId(rs.getInt(1));
+        }
+        int id = p.getId();
+        c.close();
+        return id;
     }
     
 }
