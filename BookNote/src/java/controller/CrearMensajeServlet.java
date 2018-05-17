@@ -5,13 +5,19 @@
  */
 package controller;
 
+import exception.MotorNoSoportadoException;
+import factories.DAOFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Mensaje;
 
 /**
  *
@@ -33,16 +39,21 @@ public class CrearMensajeServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CrearMensajeServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CrearMensajeServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            Mensaje m = new Mensaje();
+
+            m.setTexto(request.getParameter("mensaje"));
+            m.setFecha(request.getParameter("fecha"));
+            m.setId_asignatura(Integer.parseInt(request.getParameter("cboAsignatura")));
+
+            DAOFactory.getInstance().getMensajeDAO(DAOFactory.Motor.MY_SQL).create(m);//msje hacia afuera ;-;
+
+            response.sendRedirect("docenteMensaje.jsp");
+        } catch (MotorNoSoportadoException ex) {
+            Logger.getLogger(CrearMensajeServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CrearMensajeServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrearMensajeServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

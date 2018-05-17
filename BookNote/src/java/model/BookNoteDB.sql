@@ -128,6 +128,11 @@ create table mensaje (
 ); -- select * from mensaje;
 -- drop table mensaje
 INSERT INTO mensaje VALUES (null,'me da un completo',NOW(),1);
+INSERT INTO mensaje VALUES (null,'Tensidad...',NOW(),2);
+
+select mensaje.texto 
+from mensaje 
+where mensaje.id_asignatura = 1;
 
 -- select persona.id, persona.nombre, persona.apellido 
 -- from asignatura_alumno, persona, asignatura where asignatura.nombre like'%calculo%' and asignatura_alumno.id_alumno = persona.id

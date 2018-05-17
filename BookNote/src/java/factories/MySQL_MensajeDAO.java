@@ -37,18 +37,16 @@ public class MySQL_MensajeDAO implements MensajeDAO {
 
         rs = c.ejecutarSelec(sql);
 
-        
-            while (rs.next()) {
-                m = new Mensaje();
-                
-                m.setId(rs.getInt(1));
-                m.setTexto(rs.getString(2));
-                m.setFecha(rs.getString(3));
-                m.setId_asignatura(rs.getInt(4));
-                
-                mensaje.add(m);
-            }
-        
+        while (rs.next()) {
+            m = new Mensaje();
+
+            m.setId(rs.getInt(1));
+            m.setTexto(rs.getString(2));
+            m.setFecha(rs.getString(3));
+            m.setId_asignatura(rs.getInt(4));
+
+            mensaje.add(m);
+        }
 
         c.close();
 
@@ -65,6 +63,26 @@ public class MySQL_MensajeDAO implements MensajeDAO {
     public void delete(String id) throws SQLException {
         sql = "delete from mensaje where id=" + id;
         c.ejecutar(sql);
+    }
+
+    @Override
+    public List<Mensaje> buscar(int exp) throws SQLException {
+        sql = "select mensaje.texto, mensaje.fecha from mensaje where mensaje.id_asignatura = " + exp;
+
+        mensaje = new ArrayList<>();
+        Mensaje m;
+        rs = c.ejecutarSelec(sql);
+
+        while (rs.next()) {
+            m = new Mensaje();
+            m.setTexto(rs.getString(1));
+            m.setFecha(rs.getString(2));
+
+            mensaje.add(m);
+        }
+
+        c.close();
+        return mensaje;
     }
 
 }
