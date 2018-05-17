@@ -68,11 +68,9 @@ public class MySQL_PersonaDAO implements PersonaDAO {
     }
 
     //select * from persona where id_usuario = usuario.id 
-
     @Override
-    public Persona searchNameByUser(int idUsuario) throws SQLException{
-        sql = "select * from persona where id_usuario = "+idUsuario;
-
+    public Persona searchNameByUser(int idUsuario) throws SQLException {
+        sql = "select * from persona where id_usuario = " + idUsuario;
 
         Persona p = null;
 
@@ -91,35 +89,36 @@ public class MySQL_PersonaDAO implements PersonaDAO {
 
         return p;
     }
-    
-    
-    @Override
-    public List<Persona> getNameByAsignatura(String asignatura) throws SQLException{
-        sql = "select persona.id, persona.nombre, persona.apellido "
-                + "from asignatura_alumno, persona, asignatura "
-                + "where asignatura.nombre like'%"+asignatura+"%' and asignatura_alumno.id_alumno = persona.id";
 
-        List <Persona> alumnos = null;
+    @Override
+    public List<Persona> getNameByAsignatura(String asignatura) throws SQLException {
+//        sql = "select persona.id, persona.nombre, persona.apellido "
+//                + "from asignatura_alumno, persona, asignatura "
+//                + "where asignatura.nombre like'%"+asignatura+"%' and asignatura_alumno.id_alumno = persona.id";
+        sql = "SELECT p.id, p.nombre, p.apellido "
+                + "FROM persona p "
+                + "INNER JOIN asignatura_alumno aa ON aa.id_alumno = p.id "
+                + "INNER JOIN asignatura a ON a.id = aa.id_asignatura "
+                + "WHERE a.nombre LIKE '%" + asignatura + "%'";
+
+        List<Persona> alumnos = new ArrayList<>();;
 
         rs = c.ejecutarSelec(sql);
 
-       
-            while (rs.next()) {
-                alumnos = new ArrayList<>();
-                Persona a = new Persona();
-                a.setId( rs.getInt(1));
-                a.setNombre(rs.getString(2));
-                a.setApellido(rs.getString(3));
-                
-                alumnos.add(a);
-            }
-        
+        while (rs.next()) {
+            Persona a = new Persona();
+            a.setId(rs.getInt(1));
+            a.setNombre(rs.getString(2));
+            a.setApellido(rs.getString(3));
+
+            alumnos.add(a);
+        }
 
         c.close();
 
         return alumnos;
     }
-    
+
     @Override
     public List<Persona> getNameDocente() throws SQLException {
         sql = "select persona.id, persona.nombre, persona.apellido "
@@ -144,21 +143,21 @@ public class MySQL_PersonaDAO implements PersonaDAO {
 
         return docentes;
     }
-    
+
     @Override
-    public int getIdAlumno(int id_usu) throws SQLException{
-        sql = "select id from persona where id_usuario = "+id_usu;
-        
+    public int getIdAlumno(int id_usu) throws SQLException {
+        sql = "select id from persona where id_usuario = " + id_usu;
+
         Persona p = new Persona();
-        
+
         rs = c.ejecutarSelec(sql);
-        
-        if(rs.next()){
+
+        if (rs.next()) {
             p.setId(rs.getInt(1));
         }
         int id = p.getId();
         c.close();
         return id;
     }
-    
+
 }

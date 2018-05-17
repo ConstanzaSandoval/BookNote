@@ -14,7 +14,6 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <title>BookNote</title>
-
     </head>
 
     <style>
@@ -81,17 +80,6 @@
                 <div class="row justify-content-xl-center">
                     <div class="col-md-6 col-md-offset-3">
                         <form action="crearNota.do" method="post">
-
-                            <div class="form-group">
-                                Alumno:
-
-                                <div id="resultado"> 
-
-                                </div>
-
-
-                            </div>
-
                             <div class="form-group">
                                 Asignatura:
                                 <select name="selAsignatura" id="select" onclick="buscar()">
@@ -102,6 +90,10 @@
                                         }
                                     %>
                                 </select>
+
+                            </div>
+                            <div class="form-group" id="resultado">
+
 
                             </div>
 
@@ -123,7 +115,7 @@
                                 </button>
                                 <a href="sesion.jsp" class="btn btn-primary navbar-custome" role="button" aria-pressed="false" >Volver</a>
 
-                            </center>
+                            </center>                                    
                         </form>
                     </div>
                 </div>
@@ -131,19 +123,19 @@
         </div>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script>
-                                    function buscar() {
-                                        //Rescata lo que el usuario escribio
-                                        var txtFiltro = $("#select").val();
-                                        $.ajax({
-                                            url: "cargarAlumnos.do",
-                                            data: {
-                                                filtro: txtFiltro
-                                            },
-                                            success: function (result) {
-                                                $("#resultado").html(result);
-                                            }
-                                        });
-                                    }
+        function buscar() {
+            //Rescata lo que el usuario escribio
+            var opFiltro = $("#select").val();
+            $.ajax({
+                url: "designarNota.do",
+                data: {
+                    filtro: opFiltro
+                },
+                success: function (result) {
+                    $("#resultado").html(result);
+                }
+            });
+        }
         </script>
     </body>
 </html>

@@ -12,8 +12,8 @@ insert into perfil values(null,"administrador");
 insert into perfil values(null,"docente");
 insert into perfil values(null,"alumno");
 insert into perfil values(null,"apoderado");
---select * from perfil
---select id from perfil where perfil.perfil like '%docente%'
+-- select * from perfil
+-- select id from perfil where perfil.perfil like '%docente%'
 
 create table usuario(
     id int auto_increment,
@@ -29,7 +29,7 @@ insert into usuario value(null,"admin", AES_ENCRYPT ("admin", "llave"), 1);
 insert into usuario value(null,"jperez", AES_ENCRYPT ("jperez123", "llave"), 2);
 insert into usuario value(null,"chernandez", AES_ENCRYPT ("12cherna", "llave"), 3);
 insert into usuario value(null,"fbarrera", AES_ENCRYPT ("12fbarrera", "llave"), 4);
-select * from usuario;
+insert into usuario value(null,"azuniga", AES_ENCRYPT ("123", "llave"), 3);
 
 create table persona (
     id int auto_increment,
@@ -47,6 +47,7 @@ insert into persona values(null, "Administrador", "Administrador", 1);
 insert into persona values(null, "Juan", "Perez", 2);
 insert into persona values(null, "Carlos", "Hernandez", 3);
 insert into persona values(null, "Franco", "Barrera", 4);
+insert into persona values(null, "Alexis", "Zuniga", 5);
 
 create table alumnoApoderado (
     id int auto_increment,
@@ -56,6 +57,7 @@ create table alumnoApoderado (
     foreign key(fk_alumno) references persona(id),
     foreign key(fk_apoderado) references persona(id)
 );
+
 Insert into alumnoApoderado values(null, 3, 1);
 
 create table asignatura (
@@ -68,7 +70,8 @@ create table asignatura (
 ); -- select * from asignatura;
 
 insert into asignatura values(null, "calculo", 2, 90);
---select * from persona where id_usuario = 1
+insert into asignatura values(null, "Base de datos", 2, 90);
+-- select * from persona where id_usuario = 1
 
 create table asistencia (
     id int auto_increment,
@@ -80,10 +83,12 @@ create table asistencia (
     foreign key(id_alumno) references persona(id),
     foreign key(id_asignatura) references asignatura(id)
 );
---select * from asistencia;
+-- select * from asistencia;
 
 insert into asistencia value(null,1,1,now(),true);
 insert into asistencia value(null,2,1,now(),false);
+insert into asistencia value(null,2,2,now(),false);
+insert into asistencia value(null,5,1,now(),false);
 
 create table asignatura_alumno (
     id int auto_increment,
@@ -95,7 +100,8 @@ create table asignatura_alumno (
 ); -- select * from asignatura_alumno;
 
 INSERT INTO asignatura_alumno VALUES (null,1,3);
---select * from usuario where usuario.pass = AES_ENCRYPT ('admin', 'llave') and nickname = 'admin' and perfil = 1
+INSERT INTO asignatura_alumno VALUES (null,1,5);
+-- select * from usuario where usuario.pass = AES_ENCRYPT ('admin', 'llave') and nickname = 'admin' and perfil = 1
 
 create table prueba(
     id int auto_increment,
@@ -120,13 +126,11 @@ create table mensaje (
     primary key (id),
     foreign key(id_asignatura) references asignatura(id)    
 ); -- select * from mensaje;
---drop table mensaje
+-- drop table mensaje
 INSERT INTO mensaje VALUES (null,'me da un completo',NOW(),1);
 
---select persona.id, persona.nombre, persona.apellido 
-from asignatura_alumno, persona, asignatura 
-where asignatura.nombre like'%calculo%' and asignatura_alumno.id_alumno = persona.id
-
+-- select persona.id, persona.nombre, persona.apellido 
+-- from asignatura_alumno, persona, asignatura where asignatura.nombre like'%calculo%' and asignatura_alumno.id_alumno = persona.id
 /*DELIMITER $$
 CREATE FUNCTION crear_usuario (nickn VARCHAR(50),passw VARCHAR(50)) RETURNS BOOLEAN -- DROP FUNCTION crear_usuario
 BEGIN
