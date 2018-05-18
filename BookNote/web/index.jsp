@@ -40,7 +40,7 @@
                    <!-- <span><img width=80px height=35px src=""></span> LOGO--> 
                 </a>
             </div>
-            <label> <p class="navbar-text pull-left navbar-custome">BookNote</p></label>
+            <label> <p class="navbar-text pull-left navbar-custome"><a href="" style="text-decoration:none;color: #465346" > BookNote</a></p></label>
             
             <ul class="nav navbar-nav navbar-right" style="padding-right: 10px">
                 <li>

@@ -72,7 +72,7 @@
                     <!-- <span><img width=80px height=35px src=""></span> LOGO--> 
                 </a>
             </div>
-            <p class="navbar-text pull-left">BookNote</p>
+            <p class="navbar-text pull-left"><a href="sesion.jsp" style="text-decoration:none;color: #465346" > BookNote</a></p>
 
             <ul class="nav navbar-nav navbar-center">
 
