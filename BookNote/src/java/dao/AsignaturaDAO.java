@@ -9,4 +9,9 @@ public interface AsignaturaDAO {
     List<Asignatura> read()throws SQLException;        
     void update (Asignatura as)throws SQLException;
     void delete (String id)throws SQLException;
+    
+    //otros
+    List<Asignatura> asignaturaDocente(int id) throws SQLException;
+    List<Asignatura> asignaturaAlumno(int id) throws SQLException;
+    
 }

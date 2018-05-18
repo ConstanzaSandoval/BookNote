@@ -85,8 +85,11 @@
                     <a href="docenteAsistencia.jsp">Asistencia</a>
                 </li>
 
-                <li>
-                    <a href="docenteMensaje.jsp">Mensajes</a>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Mensajes<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="docenteMensaje.jsp">Enviar mensajes</a></li>
+                        <li><a href="docenteVerMensajes.jsp">Ver mensajes</a></li>
+                    </ul>
                 </li>
                 <%
                     }

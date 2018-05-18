@@ -30,6 +30,7 @@ insert into usuario value(null,"jperez", AES_ENCRYPT ("jperez123", "llave"), 2);
 insert into usuario value(null,"chernandez", AES_ENCRYPT ("12cherna", "llave"), 3);
 insert into usuario value(null,"fbarrera", AES_ENCRYPT ("12fbarrera", "llave"), 4);
 insert into usuario value(null,"azuniga", AES_ENCRYPT ("123", "llave"), 3);
+insert into usuario value(null,"Berny", AES_ENCRYPT ("berny", "llave"), 2);
 
 create table persona (
     id int auto_increment,
@@ -48,6 +49,8 @@ insert into persona values(null, "Juan", "Perez", 2);
 insert into persona values(null, "Carlos", "Hernandez", 3);
 insert into persona values(null, "Franco", "Barrera", 4);
 insert into persona values(null, "Alexis", "Zuniga", 5);
+insert into persona values(null, "Berny", "Ant", 6);
+
 
 create table alumnoApoderado (
     id int auto_increment,
@@ -71,6 +74,7 @@ create table asignatura (
 
 insert into asignatura values(null, "calculo", 2, 90);
 insert into asignatura values(null, "Base de datos", 2, 90);
+insert into asignatura values(null, "Arquitectura de software", 6, 90);
 -- select * from persona where id_usuario = 1
 
 create table asistencia (
@@ -101,6 +105,8 @@ create table asignatura_alumno (
 
 INSERT INTO asignatura_alumno VALUES (null,1,3);
 INSERT INTO asignatura_alumno VALUES (null,1,5);
+INSERT INTO asignatura_alumno VALUES (null,3,3);
+INSERT INTO asignatura_alumno VALUES (null,3,5);
 -- select * from usuario where usuario.pass = AES_ENCRYPT ('admin', 'llave') and nickname = 'admin' and perfil = 1
 
 create table prueba(
@@ -141,6 +147,16 @@ INSERT INTO mensaje VALUES (null,'Tensidad...',NOW(),2);
 select mensaje.texto 
 from mensaje 
 where mensaje.id_asignatura = 1;
+
+select asignatura.id, asignatura.nombre 
+from asignatura
+where id_docente = 6
+
+------------------------------------------------
+select asignatura.id, asignatura.nombre
+from asignatura, asignatura_alumno, persona
+where asignatura.id = id_asignatura and persona.id = id_alumno
+and id_alumno = 3
 
 -- select persona.id, persona.nombre, persona.apellido 
 -- from asignatura_alumno, persona, asignatura where asignatura.nombre like'%calculo%' and asignatura_alumno.id_alumno = persona.id

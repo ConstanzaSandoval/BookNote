@@ -1,3 +1,5 @@
+<%@page import="model.Usuario"%>
+<%@page import="model.Persona"%>
 <%@page import="factories.DAOFactory"%>
 <%@page import="model.Asignatura"%>
 <%@page import="java.util.List"%>
@@ -6,7 +8,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">S
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -100,12 +102,14 @@
                 <center><h1>Mensajes</h1></center>
                 <div class="row justify-content-xl-center">
                     <div class="col-md-6 col-md-offset-3">
-
                         Asignatura correspondiente:
                         <label for="cboAsignaturas"></label><span class="text-danger"></span>
                         <select class="form-control" id="a" name="cboAsignaturas" onclick="mostrarMensaje()">
                             <%
-                                List<Asignatura> list = DAOFactory.getInstance().getAsignaturaDAO(DAOFactory.Motor.MY_SQL).read();
+                                Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+                                Persona p = DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).searchNameByUser(u.getId());
+                                int id = p.getId();
+                                List<Asignatura> list = DAOFactory.getInstance().getAsignaturaDAO(DAOFactory.Motor.MY_SQL).asignaturaAlumno(id);
                                 for (Asignatura a : list) {
                                     out.println("<option value='" + a.getId() + "'>" + a.getNombre() + "</option>");
 
@@ -117,7 +121,7 @@
 
                         </div>
                     </div>
-                        <a href="sesion.jsp" class="btn btn-primary navbar-custome" role="button" aria-pressed="false" style="margin-top: 18px" >
+                    <a href="sesion.jsp" class="btn btn-primary navbar-custome" role="button" aria-pressed="false" style="margin-top: 18px" >
                         Volver a inicio
                     </a>
 

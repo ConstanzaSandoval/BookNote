@@ -28,7 +28,7 @@ public class MySQL_AsignaturaDAO implements AsignaturaDAO {
     }
 
     @Override
-    public List<Asignatura> read()throws SQLException {
+    public List<Asignatura> read() throws SQLException {
         sql = "select * from asignatura";
 
         asignatura = new ArrayList<>();
@@ -37,18 +37,16 @@ public class MySQL_AsignaturaDAO implements AsignaturaDAO {
 
         rs = c.ejecutarSelec(sql);
 
-       
-            while (rs.next()) {
-                as = new Asignatura();
-                
-                as.setId(rs.getInt(1));
-                as.setNombre(rs.getString(2));
-                as.setId_docente(rs.getInt(3));
-                as.setAsistencia(rs.getInt(4));
-                
-                asignatura.add(as);
-            }
-        
+        while (rs.next()) {
+            as = new Asignatura();
+
+            as.setId(rs.getInt(1));
+            as.setNombre(rs.getString(2));
+            as.setId_docente(rs.getInt(3));
+            as.setAsistencia(rs.getInt(4));
+
+            asignatura.add(as);
+        }
 
         c.close();
 
@@ -65,6 +63,53 @@ public class MySQL_AsignaturaDAO implements AsignaturaDAO {
     public void delete(String id) throws SQLException {
         sql = "delete from asignatura where id=" + id;
         c.ejecutar(sql);
+    }
+
+    @Override
+    public List<Asignatura> asignaturaDocente(int id) throws SQLException {
+        sql = "select asignatura.id, asignatura.nombre "
+                + "from asignatura "
+                + "where id_docente =" + id;
+
+        asignatura = new ArrayList<>();
+        Asignatura as;
+
+        rs = c.ejecutarSelec(sql);
+        while (rs.next()) {
+            as = new Asignatura();
+
+            as.setId(rs.getInt(1));
+            as.setNombre(rs.getString(2));
+            asignatura.add(as);
+        }
+
+        c.close();
+        return asignatura;
+
+    }
+
+    @Override
+    public List<Asignatura> asignaturaAlumno(int id) throws SQLException {
+       sql = "select asignatura.id, asignatura.nombre "
+                + "from asignatura, asignatura_alumno, persona "
+                + "where asignatura.id = id_asignatura and persona.id = id_alumno "
+                + "and id_alumno = " + id;
+
+        asignatura = new ArrayList<>();
+        Asignatura asa;
+
+        rs = c.ejecutarSelec(sql);
+
+        while (rs.next()) {
+            asa = new Asignatura();
+
+            asa.setId(rs.getInt(1));
+            asa.setNombre(rs.getString(2));
+            asignatura.add(asa);
+        }
+
+        c.close();
+        return asignatura;    
     }
 
 }

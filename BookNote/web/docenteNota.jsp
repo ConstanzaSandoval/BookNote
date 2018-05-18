@@ -1,3 +1,4 @@
+<%@page import="model.Usuario"%>
 <%@page import="model.Prueba"%>
 <%@page import="model.Persona"%>
 <%@page import="factories.DAOFactory"%>
@@ -60,8 +61,11 @@
                     <a href="docenteAsistencia.jsp">Asistencia</a>
                 </li>
 
-                <li>
-                    <a href="docenteMensaje.jsp">Mensajes</a>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Mensajes<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="docenteMensaje.jsp">Enviar mensajes</a></li>
+                        <li><a href="docenteVerMensajes.jsp">Ver mensajes</a></li>
+                    </ul>
                 </li>
             </ul>
 
@@ -85,7 +89,11 @@
                                 Asignatura:
                                 <select name="selAsignatura" class="form-control" id="select" onclick="buscar()">
                                     <%
-                                        List<Asignatura> asignaturas = DAOFactory.getInstance().getAsignaturaDAO(DAOFactory.Motor.MY_SQL).read();
+                                        Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+                                        Persona peerr = DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).searchNameByUser(u.getId());
+                                        int id = peerr.getId();
+
+                                        List<Asignatura> asignaturas = DAOFactory.getInstance().getAsignaturaDAO(DAOFactory.Motor.MY_SQL).asignaturaDocente(id);
                                         for (Asignatura a : asignaturas) {
                                             out.println("<option class='form-control' value=" + a.getNombre() + ">" + a.getNombre() + "</option>");
                                         }
@@ -97,33 +105,33 @@
 
 
                             </div>
-                            
+
                             <div>
                                 Prueba:
                                 <select name="selecPrueba" class="form-control" id="prueba" onclick="buscarPorc()">
-                                <%
-                                    List<Prueba> listaprueba = DAOFactory.getInstance().getPruebaDAO(DAOFactory.Motor.MY_SQL).read();
-                                    for (Prueba p : listaprueba) {
-                                            out.println("<option class='form-control' value=" + p.getNombre()+ ">" + p.getNombre()+ "</option>");
+                                    <%
+                                        List<Prueba> listaprueba = DAOFactory.getInstance().getPruebaDAO(DAOFactory.Motor.MY_SQL).read();
+                                        for (Prueba p : listaprueba) {
+                                            out.println("<option class='form-control' value=" + p.getNombre() + ">" + p.getNombre() + "</option>");
                                         }
-                                
-                                %>
+
+                                    %>
                                 </select>
                             </div>
-                           
-                                
+
+
                             <div class="form-group" id="resultadoPor">
 
 
                             </div>
-                               
+
                             <div class="form-group">
                                 Nota:
                                 <input name="txtNota" type="number" class="form-control" maxlength="8"  id="txtNota" placeholder="Nota:" required="required">
 
                             </div>
 
-                            
+
 
                             <center>
                                 <button  class="btn btn-primary navbar-custome" type="submit" value="Registrar Usuario" name="registrar">
@@ -139,42 +147,42 @@
         </div>
         <script src="js/jquery-3.2.1.min.js"></script>
         <script>
-        function buscar() {
-            //Rescata lo que el usuario escribio
-            var opFiltro = $("#select").val();
-            $.ajax({
-                url: "mostrarAlumno.do",
-                data: {
-                    filtro: opFiltro
-                },
-                success: function (result) {
-                    $("#resultado").html(result);
-                }
-            });
-        }
+                                    function buscar() {
+                                        //Rescata lo que el usuario escribio
+                                        var opFiltro = $("#select").val();
+                                        $.ajax({
+                                            url: "mostrarAlumno.do",
+                                            data: {
+                                                filtro: opFiltro
+                                            },
+                                            success: function (result) {
+                                                $("#resultado").html(result);
+                                            }
+                                        });
+                                    }
 
-        
-        
+
+
         </script>
-        
+
         <script>
-            
-                    
-        function buscarPorc() {
-            //Rescata lo que el usuario escribio
-            var opFiltroPor = $("#select").val();
-            $.ajax({
-                url: "mostrarPorcentaje.do",
-                data: {
-                    filtro: opFiltroPor
-                },
-                success: function (result) {
-                    $("#resultadoPor").html(result);
-                }
-            });
-        }
-            
+
+
+            function buscarPorc() {
+                //Rescata lo que el usuario escribio
+                var opFiltroPor = $("#select").val();
+                $.ajax({
+                    url: "mostrarPorcentaje.do",
+                    data: {
+                        filtro: opFiltroPor
+                    },
+                    success: function (result) {
+                        $("#resultadoPor").html(result);
+                    }
+                });
+            }
+
         </script>
-        
+
     </body>
 </html>
