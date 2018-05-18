@@ -71,7 +71,7 @@ public class Prueba {
 
     @Override
     public String toString() {
-        return "Prueba{" + "id=" + id + ", nombre=" + nombre + ", nota=" + nota + ", porcentaje=" + porcentaje + ", id_asignatura=" + id_asignatura + ", id_alumno=" + id_alumno + '}';
+        return nombre;
     }
     
 }

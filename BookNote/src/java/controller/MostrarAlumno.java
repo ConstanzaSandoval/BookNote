@@ -19,13 +19,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Persona;
+import model.Prueba;
 
 /**
  *
  * @author Alex971
  */
-@WebServlet(name = "CargarAlumnosServlet", urlPatterns = {"/designarNota.do"})
-public class designarNotaServlet extends HttpServlet {
+@WebServlet(name = "CargarAlumnosServlet", urlPatterns = {"/mostrarAlumno.do"})
+public class MostrarAlumno extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, MotorNoSoportadoException, ClassNotFoundException, SQLException {
@@ -36,13 +37,15 @@ public class designarNotaServlet extends HttpServlet {
 
             List<Persona> personas = DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).getNameByAsignatura(filtro);
             out.println(" Alumno:"
-                    + "<select name=\"selAlumno\" id=\"selectAlumno\">");
+                    + "<select class=\"form-control\" name=\"selAlumno\" id=\"selectAlumno\">");
             for (Persona p : personas) {
 
                 out.println("<option  value=" + p.getNombre() + " " + p.getApellido() + ">" + p.getNombre() + " " + p.getApellido() + "</option>");
 
             }
             out.println("</select>\n");
+            
+            
             //response.sendRedirect("docenteNota.jsp");
         }
     }
@@ -53,11 +56,11 @@ public class designarNotaServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (MotorNoSoportadoException ex) {
-            Logger.getLogger(designarNotaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MostrarAlumno.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(designarNotaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MostrarAlumno.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(designarNotaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MostrarAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -66,11 +69,11 @@ public class designarNotaServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (MotorNoSoportadoException ex) {
-            Logger.getLogger(designarNotaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MostrarAlumno.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(designarNotaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MostrarAlumno.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(designarNotaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MostrarAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
