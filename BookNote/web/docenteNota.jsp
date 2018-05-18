@@ -1,3 +1,4 @@
+<%@page import="model.Prueba"%>
 <%@page import="model.Persona"%>
 <%@page import="factories.DAOFactory"%>
 <%@page import="model.Asignatura"%>
@@ -82,11 +83,11 @@
                         <form action="crearNota.do" method="post">
                             <div class="form-group">
                                 Asignatura:
-                                <select name="selAsignatura" id="select" onclick="buscar()">
+                                <select name="selAsignatura" class="form-control" id="select" onclick="buscar()">
                                     <%
                                         List<Asignatura> asignaturas = DAOFactory.getInstance().getAsignaturaDAO(DAOFactory.Motor.MY_SQL).read();
                                         for (Asignatura a : asignaturas) {
-                                            out.println("<option  value=" + a.getNombre() + ">" + a.getNombre() + "</option>");
+                                            out.println("<option class='form-control' value=" + a.getNombre() + ">" + a.getNombre() + "</option>");
                                         }
                                     %>
                                 </select>
@@ -96,18 +97,33 @@
 
 
                             </div>
+                            
+                            <div>
+                                Prueba:
+                                <select name="selecPrueba" class="form-control" id="prueba" onclick="buscarPorc()">
+                                <%
+                                    List<Prueba> listaprueba = DAOFactory.getInstance().getPruebaDAO(DAOFactory.Motor.MY_SQL).read();
+                                    for (Prueba p : listaprueba) {
+                                            out.println("<option class='form-control' value=" + p.getNombre()+ ">" + p.getNombre()+ "</option>");
+                                        }
+                                
+                                %>
+                                </select>
+                            </div>
+                           
+                                
+                            <div class="form-group" id="resultadoPor">
 
+
+                            </div>
+                               
                             <div class="form-group">
                                 Nota:
                                 <input name="txtNota" type="number" class="form-control" maxlength="8"  id="txtNota" placeholder="Nota:" required="required">
 
                             </div>
 
-                            <div class="form-group">
-                                Porcentaje:
-                                <input name="txtPor" type="number" class="form-control" maxlength="8"  id="txtPor" placeholder="Porcentaje:" required="required">
-
-                            </div>
+                            
 
                             <center>
                                 <button  class="btn btn-primary navbar-custome" type="submit" value="Registrar Usuario" name="registrar">
@@ -127,7 +143,7 @@
             //Rescata lo que el usuario escribio
             var opFiltro = $("#select").val();
             $.ajax({
-                url: "designarNota.do",
+                url: "mostrarAlumno.do",
                 data: {
                     filtro: opFiltro
                 },
@@ -136,6 +152,29 @@
                 }
             });
         }
+
+        
+        
         </script>
+        
+        <script>
+            
+                    
+        function buscarPorc() {
+            //Rescata lo que el usuario escribio
+            var opFiltroPor = $("#select").val();
+            $.ajax({
+                url: "mostrarPorcentaje.do",
+                data: {
+                    filtro: opFiltroPor
+                },
+                success: function (result) {
+                    $("#resultadoPor").html(result);
+                }
+            });
+        }
+            
+        </script>
+        
     </body>
 </html>

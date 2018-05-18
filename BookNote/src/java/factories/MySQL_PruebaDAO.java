@@ -68,5 +68,33 @@ public class MySQL_PruebaDAO implements PruebaDAO {
         sql = "delete from prueba where id=" + id;
         c.ejecutar(sql);
     }
+    
+        @Override
+    public List<Prueba> getPorcByNombre(String nombre) throws SQLException {
+        sql = "select prueba.porcentaje from prueba where prueba.nombre LIKE '%" + nombre + "%'";
+
+        prueba = new ArrayList<>();
+
+        Prueba p;
+
+        rs = c.ejecutarSelec(sql);
+
+     
+            while (rs.next()) {
+                p = new Prueba();
+                
+               
+                p.setNombre(rs.getString(1));
+                p.setPorcentaje(rs.getFloat(2));
+               
+                
+                prueba.add(p);
+            }
+       
+
+        c.close();
+
+        return prueba;
+    }
 
 }

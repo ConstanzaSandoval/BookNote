@@ -118,7 +118,13 @@ create table prueba(
 insert into prueba value(null,"prueba 1",5.5,0.25,1,3);
 insert into prueba value(null,"prueba 2",6.1,0.25,1,3);
 insert into prueba value(null,"prueba 3",3.5,0.25,1,3);
+insert into prueba value(null,"prueba 2",6.5,0.30,1,3);
 
+select * from prueba where nombre = 'prueba 1';
+
+select prueba.porcentaje from prueba where prueba.nombre = 'prueba 2';
+
+select prueba.nombre from prueba;
 
 create table mensaje (
     id int auto_increment,

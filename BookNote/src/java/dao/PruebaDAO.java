@@ -10,4 +10,5 @@ public interface PruebaDAO {
     List<Prueba> read()throws SQLException;        
     void update (Prueba p)throws SQLException;
     void delete (String id)throws SQLException;
+    List<Prueba> getPorcByNombre(String nombre)throws SQLException;
 }
