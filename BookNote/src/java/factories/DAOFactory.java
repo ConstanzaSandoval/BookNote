@@ -11,6 +11,7 @@ import dao.UsuarioDAO;
 import exception.MotorNoSoportadoException;
 import java.sql.SQLException;
 import dao.PersonaDAO;
+import dao.PruebaSelectDAO;
 
 public class DAOFactory {
 
@@ -82,6 +83,16 @@ public class DAOFactory {
         switch (motor) {
             case MY_SQL:
                 return new MySQL_PruebaDAO();
+            default:
+                throw new MotorNoSoportadoException(motor + " no soportado");
+        }
+    }
+    
+    
+    public PruebaSelectDAO getPruebaSelectDAO(Motor motor) throws MotorNoSoportadoException, ClassNotFoundException, SQLException {
+        switch (motor) {
+            case MY_SQL:
+                return new MySQL_PruebaSelectDAO();
             default:
                 throw new MotorNoSoportadoException(motor + " no soportado");
         }

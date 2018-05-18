@@ -116,6 +116,8 @@ create table prueba(
 );
 
 insert into prueba value(null,"prueba 1",5.5,0.25,1,3);
+insert into prueba value(null,"prueba 2",6.1,0.25,1,3);
+insert into prueba value(null,"prueba 3",3.5,0.25,1,3);
 
 
 create table mensaje (
