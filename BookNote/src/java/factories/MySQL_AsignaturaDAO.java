@@ -111,5 +111,34 @@ public class MySQL_AsignaturaDAO implements AsignaturaDAO {
         c.close();
         return asignatura;    
     }
+    
+    @Override
+    public List<Asignatura> getAsignaturaProfesor(int idDocente)throws SQLException {
+        sql = "select * from asignatura where id_docente = "+idDocente;
+
+        asignatura = new ArrayList<>();
+
+        Asignatura as;
+
+        rs = c.ejecutarSelec(sql);
+
+       
+            while (rs.next()) {
+                as = new Asignatura();
+                
+                as.setId(rs.getInt(1));
+                as.setNombre(rs.getString(2));
+                as.setId_docente(rs.getInt(3));
+                as.setAsistencia(rs.getInt(4));
+                
+                asignatura.add(as);
+            }
+        
+
+        c.close();
+
+
+        return asignatura;
+    }
 
 }

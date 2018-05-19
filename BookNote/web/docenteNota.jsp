@@ -18,6 +18,15 @@
         <title>BookNote</title>
     </head>
 
+    <%
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+
+        if (u == null) {
+            request.getSession().setAttribute("error", new Error("Debe Ingresar sus Credenciales"));
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+    %>
+    
     <style>
         .navbar-nav.navbar-center {
             position: absolute;
@@ -89,11 +98,11 @@
                                 Asignatura:
                                 <select name="selAsignatura" class="form-control" id="select" onclick="buscar()">
                                     <%
-                                        Usuario u = (Usuario) request.getSession().getAttribute("usuario");
-                                        Persona peerr = DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).searchNameByUser(u.getId());
-                                        int id = peerr.getId();
+                                        
+                                        Persona per = DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).searchNameByUser(u.getId());
 
-                                        List<Asignatura> asignaturas = DAOFactory.getInstance().getAsignaturaDAO(DAOFactory.Motor.MY_SQL).asignaturaDocente(id);
+                                        List<Asignatura> asignaturas = DAOFactory.getInstance().getAsignaturaDAO(DAOFactory.Motor.MY_SQL).getAsignaturaProfesor(per.getId());
+
                                         for (Asignatura a : asignaturas) {
                                             out.println("<option class='form-control' value=" + a.getNombre() + ">" + a.getNombre() + "</option>");
                                         }

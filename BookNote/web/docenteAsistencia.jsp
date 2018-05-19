@@ -1,3 +1,7 @@
+<%@page import="model.Asignatura"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Persona"%>
+<%@page import="factories.DAOFactory"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,6 +15,56 @@
 
         <title>BookNote</title>
     </head>
+    
+    <%
+        Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+
+        if (u == null) {
+            request.getSession().setAttribute("error", new Error("Debe Ingresar sus Credenciales"));
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+    %>
+    <script>
+        $(function () {
+            $("#fechaNacimiento").datepicker();
+            $("#fechaNacimiento").datepicker({
+                dateFormat: "dd-mm-yy"
+            });
+
+            // Getter
+            var dateFormat = $("#fechaNacimiento").datepicker("option", "dateFormat");
+
+            // Setter
+            $("#fechaNacimiento").datepicker("option", "dateFormat", "dd 'de' MM 'de' yy");
+        });
+    </script>
+
+    <script>
+        // español
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '<Ant',
+            nextText: 'Sig>',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-100:+0",
+            maxDate: "+0m"
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+
+    </script>
 
     <style>
         .navbar-nav.navbar-center {
@@ -93,25 +147,26 @@
                 <center><h1>Asistencia</h1></center>
                 <div class="row justify-content-xl-center">
                     <div class="col-md-6 col-md-offset-3">
-                        <form action="sesionDocente.jsp" method="post">
+                        <div>
+                            <!--   <input class="form-control" id="fechaNacimiento" name="txtFechaNacimineto" readonly="" required="required">-->
+                        </div>
+                        <br>
+                        Asignatura:
+                        <select name="selAsignatura" class="form-control" id="select" onclick="buscar()">
+                            <%
+                                Persona per = DAOFactory.getInstance().getPersonaDAO(DAOFactory.Motor.MY_SQL).searchNameByUser(u.getId());
 
-                            <table>
-                                <tr>
-                                    <th>Alumno</th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
+                                List<Asignatura> asignaturas = DAOFactory.getInstance().getAsignaturaDAO(DAOFactory.Motor.MY_SQL).getAsignaturaProfesor(per.getId());
+                                for (Asignatura a : asignaturas) {
+                                    out.println("<option class='form-control' value=" + a.getId() + ">" + a.getNombre() + "</option>");
+                                }
+                            %>
+                        </select>
+                        <br>
+                        <form action="crearAsistencia.do" method="post">
+                            <div class="form-group" id="resultado">
 
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-
-                            </table>
+                            </div>
 
                             <center>
                                 <button  class="btn btn-primary navbar-custome" type="submit" value="Registrar Usuario" name="registrar">
@@ -126,4 +181,25 @@
             </div>
         </div>
     </body>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script>
+                            function buscar() {
+                                //Rescata lo que el usuario escribio
+                                var opFiltro = $("#select").val();
+                                $.ajax({
+                                    url: "mostrarAlumnosAsignatura.do",
+                                    data: {
+                                        filtro: opFiltro
+                                    },
+                                    success: function (result) {
+                                        $("#resultado").html(result);
+                                    }
+                                });
+                            }
+
+
+
+    </script>
+    
+    
 </html>

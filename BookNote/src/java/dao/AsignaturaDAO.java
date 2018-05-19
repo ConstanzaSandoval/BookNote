@@ -13,5 +13,6 @@ public interface AsignaturaDAO {
     //otros
     List<Asignatura> asignaturaDocente(int id) throws SQLException;
     List<Asignatura> asignaturaAlumno(int id) throws SQLException;
+    List<Asignatura> getAsignaturaProfesor(int idDocente)throws SQLException;
     
 }
